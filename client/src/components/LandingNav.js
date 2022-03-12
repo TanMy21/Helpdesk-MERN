@@ -14,20 +14,27 @@ const LandingNav = () => {
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item mx-0 mx-lg-1">
-              <a className="nav-link py-3 px-0 px-lg-3 rounded" href="#">
+              <Link
+                to="/"
+                className="nav-link py-3 px-0 px-lg-3 rounded font-weight-bold"
+              >
                 Pricing
-              </a>
+              </Link>
             </li>
             <li className="nav-item mx-0 mx-lg-1">
-              <a className="nav-link py-3 px-0 px-lg-3 rounded" href="#">
+              <Link
+                to="/"
+                className="nav-link py-3 px-0 px-lg-3 rounded font-weight-bold"
+              >
                 About
-              </a>
+              </Link>
             </li>
             <li className="nav-item mx-0 mx-lg-1">
-              <Link to="/login">
-                <a className="nav-link py-3 px-0 px-lg-3 rounded nav-link" href="#">
-                  Sign In
-                </a>
+              <Link
+                to="/login"
+                className="nav-link py-3 px-0 px-lg-3 rounded font-weight-bold"
+              >
+                Sign In
               </Link>
             </li>
           </ul>
