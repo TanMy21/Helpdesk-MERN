@@ -1,15 +1,17 @@
-const FormRow = (props) => {
-
-  const { label, inputType, placeholder} = props
+const FormRow = ({label, type, name, value, handleChange}) => {
+  
 
   return (
     <>
       <div className="form-group mt-4">
-        <label for="exampleInputEmail1">{label}</label>
+        <label htmlFor="exampleInputEmail1">{label}</label>
         <input
-          type={inputType}
+          type={type}
           className="form-control"
-          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={handleChange}
+          required
         />
       </div>
     </>
