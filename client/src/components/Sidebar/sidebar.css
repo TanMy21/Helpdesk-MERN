@@ -1,0 +1,152 @@
+.sidebar-container {
+  width: 10%;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  background-color: #34168b;
+  /* border: 2px solid black; */
+}
+
+.sidebar-container-small {
+  width: 4%;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  background-color: #34168b;
+  /* border: 2px solid black; */
+}
+
+.sb-logo {
+  width: 70%;
+  height: 20%;
+}
+
+.sb-icon {
+  width: 90%;
+  height: 80%;
+}
+
+#sb-icon {
+  margin-bottom: 36%;
+}
+
+.btn-hb {
+  background-color: transparent;
+  border: none;
+}
+
+.hb-icon {
+  margin-top: 16%;
+  margin-left: 40%;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.small-hb-icon {
+  margin-top: 16%;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.nav-links {
+  margin-top: 100%;
+}
+
+.nav-links-icon {
+  display: flex;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+}
+
+.nav-links-icon:hover {
+  display: flex;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  border-radius: 8px;
+  background-color: #34168b;
+}
+
+#nav-link{
+  text-decoration: none;
+}
+
+.nl-hover:hover{
+  width: 100%;
+  height: 45px;
+  background-color: white;
+  color: #34168b;
+}
+
+#nav-link:hover{
+  background-color: #34168b;
+  text-decoration: none;
+}
+
+#nav-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+#nav-icon-expanded {
+  font-size: 2rem;
+  color: white;
+}
+
+#nav-icon-expanded:hover {
+  font-size: 2rem;
+  color: #34168b;
+}
+
+#nav-text {
+  margin-top: 8%;
+  color: white;
+  font-size: 0.8rem;
+}
+
+#nav-text-expanded {
+  margin-top: -18%;
+  margin-left: 24%;
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+#nav-text-expanded:hover {
+  margin-top: -18%;
+  margin-left: 24%;
+  color: #34168b;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+#dashboard-icon {
+  margin-top: 16%;
+  font-size: 1.8rem;
+}
+
+#dashboard-link {
+  margin-top: 1%;
+}
+
+.sb-link-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background-color: green;
+}
+
+.cs-logo {
+  margin-left: 12px;
+  margin-top: -2px;
+}

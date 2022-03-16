@@ -17,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isError, isSuccess, message } = useSelector(
+  const { user, isError, message } = useSelector(
     (state) => state.auth
   );
 
@@ -26,12 +26,12 @@ const Login = () => {
       toast.error(message);
     }
 
-    if (isSuccess || user) {
+    if (user) {
       navigate("/dashboard");
     }
 
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
+  }, [user, isError, message, navigate, dispatch]);
 
   const handleChange = (e) => {
     setLoginData((prevState) => ({

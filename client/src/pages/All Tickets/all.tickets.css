@@ -1,0 +1,46 @@
+.all-tickets-page {
+    width: 100%;
+    height: 100%;
+    min-width: 100vw;
+  }
+  
+  .content-area {
+    display: inline-block;
+  }
+  
+  .sidebar {
+    position: absolute;
+    width: 4vw;
+    height: 100vh;
+    background-color: brown;
+  }
+  
+  .main-content {
+    float: right;
+    width: 25vw;
+    height: 100vh;
+    background-color: rgb(32, 6, 78);
+  }
+  
+  .content-nav {
+    width: 100vw;
+    height: 6vh;
+    background-color: aqua;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100vw;
+    height: 94vh;
+    background-color: rgb(206, 214, 214);
+    border: 3px solid black;
+  }
+  
+  .page-content{
+    width: 80%;
+    height: 98%;
+    border: 2px solid white;
+  }

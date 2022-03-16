@@ -1,3 +1,10 @@
+html, body { 
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-width: 1140px
+}
+
 .App {
   text-align: center;
 }
@@ -93,3 +100,4 @@ h6 span {
    background:#fff; 
    padding:0 10px; 
 }
+

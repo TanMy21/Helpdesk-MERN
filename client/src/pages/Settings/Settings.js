@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import SidebarExpanded from "../../components/Sidebar/SidebarExpanded";
 import SidebarSmall from "../../components/Sidebar/SidebarSmall";
 import Navbar from "../../components/Navbar/navbar";
-import "./dashboard.css";
+import "./settings.css";
 
-function Dashboard() {
+function Settings() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [sbCompact, setSbCompact] = useState(0);
@@ -42,7 +42,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="container db-page">
+      <div className="container settings-page">
         <div className="row content-area ">
           <div className="col sidebar">
             {sbCompact ? (
@@ -57,7 +57,7 @@ function Dashboard() {
             </div>
             <div className="row content">
               <div className="page-content">
-                <h1>Dashboard</h1>
+                <h1>Settings</h1>
               </div>
             </div>
           </div>
@@ -67,4 +67,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Settings;
