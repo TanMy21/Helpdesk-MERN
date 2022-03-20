@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { GoDashboard } from "react-icons/go";
 import { RiTicket2Line } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from "../../assets/img/Logo2.svg";
 import "./sidebar.css";
 
@@ -25,50 +25,44 @@ const SidebarExpanded = ({ changeWidth }) => {
         </div>
         <div className="row">
           <ul>
-            <li className="mb-2">
-              <Link to="/dashboard" className="nav-link">
-                <div className="row d-flex justify-content-start">
-                  <div className="col-2">
-                    <GoDashboard id="nav-icon-expanded" />
-                  </div>
-                  <div className="col-10" id="nav-text-expanded">
-                    Dashboard
-                  </div>
-                </div>
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link to="/new-ticket" className="nav-link">
-                <div className="row d-flex justify-content-start nl-hover">
-                  <div className="col-2">
-                    <IoCreateOutline id="nav-icon-expanded" />
-                  </div>
-                  <div className="col-10" id="nav-text-expanded">
-                    New Ticket
+            <li>
+              <Link to="/dashboard" className="link">
+                <div className="nav-link-expanded">
+                  <div className="row nv-link">
+                    <div className="col">
+                      <GoDashboard id="nav-icon-expanded" />
+                    </div>
+                    <div className="col" id="nav-text-expanded">
+                      Dashboard
+                    </div>
                   </div>
                 </div>
               </Link>
             </li>
-            <li className="mb-2">
-              <Link to="/all-tickets" className="nav-link">
-                <div className="row d-flex justify-content-start">
-                  <div className="col-2">
-                    <RiTicket2Line id="nav-icon-expanded" />
-                  </div>
-                  <div className="col-10" id="nav-text-expanded">
-                    All Tickets
+            <li>
+              <Link to="/dashboard" className="link">
+                <div className="nav-link-expanded">
+                  <div className="row nv-link">
+                    <div className="col">
+                      <IoCreateOutline id="nav-icon-expanded" />
+                    </div>
+                    <div className="col" id="nav-text-expanded">
+                      NewTicket
+                    </div>
                   </div>
                 </div>
               </Link>
             </li>
-            <li className="mb-2">
-              <Link to="/settings" className="nav-link">
-                <div className="row d-flex justify-content-start">
-                  <div className="col-2">
-                    <IoSettingsOutline id="nav-icon-expanded" />
-                  </div>
-                  <div className="col-10" id="nav-text-expanded">
-                    Settings
+            <li>
+              <Link to="/dashboard" className="link">
+                <div className="nav-link-expanded">
+                  <div className="row nv-link">
+                    <div className="col">
+                      <RiTicket2Line id="nav-icon-expanded" />
+                    </div>
+                    <div className="col" id="nav-text-expanded">
+                      AllTickets
+                    </div>
                   </div>
                 </div>
               </Link>

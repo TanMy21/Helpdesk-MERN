@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { FaSignOutAlt } from "react-icons/fa";
 // import { logout, reset } from "../../features/auth/authSlice";
-import SidebarExpanded from "../../components/Sidebar/SidebarExpanded";
-import SidebarSmall from "../../components/Sidebar/SidebarSmall";
 import Navbar from "../../components/Navbar/navbar";
 import "./all.tickets.css";
+import Sidebar from "../../components/Sidebar/sidebar";
 
-function AllTicket() {
+function AllTicket({ changeWidth, sbCompact }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [sbCompact, setSbCompact] = useState(0);
 
   const { user } = useSelector((state) => state.auth);
-
-  const changeWidth = () => {
-    if (sbCompact === 0) {
-      setSbCompact(1);
-    } else {
-      setSbCompact(0);
-    }
-    console.log(sbCompact);
-  };
 
   useEffect(() => {
     if (!user) {
@@ -44,16 +33,10 @@ function AllTicket() {
     <>
       <div className="container all-tickets-page">
         <div className="row content-area ">
-          <div className="col sidebar">
-            {sbCompact ? (
-              <SidebarExpanded changeWidth={changeWidth} />
-            ) : (
-              <SidebarSmall changeWidth={changeWidth} />
-            )}
-          </div>
+          <Sidebar />
           <div className="col main-content">
             <div className="row content-nav">
-              <Navbar />
+              <Navbar title={"All Tickets"}/>
             </div>
             <div className="row content">
               <div className="page-content">
