@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { FaSignOutAlt } from "react-icons/fa";
 // import { logout, reset } from "../../features/auth/authSlice";
-import Navbar from "../../components/Navbar/navbar";
 import "./settings.css";
 import Sidebar from "../../components/Sidebar/sidebar";
+import Navbar from "../../components/Navbar/navbar";
 
-function Settings() {
+const Settings = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,23 +31,19 @@ function Settings() {
 
   return (
     <>
-      <div className="container settings-page">
-        <div className="row content-area ">
-          <Sidebar />
-          <div className="col main-content">
-            <div className="row content-nav">
-              <Navbar title={"Settings"}/>
-            </div>
-            <div className="row content">
-              <div className="page-content">
-                <h1>Settings</h1>
-              </div>
+      <div className="wrapper">
+        <Sidebar />
+        <div className="main-container">
+          <Navbar title={"Settings"} />
+          <div className="main-content">
+            <div className="content d-flex align-items-center justify-content-center">
+              <h1>Settings</h1>
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Settings;

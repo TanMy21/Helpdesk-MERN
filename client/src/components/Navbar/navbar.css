@@ -1,1 +1,62 @@
+:root {
+  --navbar-color: white;
+  --navbar-title-color: rgb(59, 48, 223);
+  --speed: 500ms;
+}
 
+/* ------------------ navbar ---------------- */
+.page-navbar {
+  width: 100%;
+  height: 60px;
+  background: var(--navbar-color);
+}
+
+.navbar-content {
+  margin-left: 1%;
+  align-items: center;
+  width: 96%;
+  height: 100%;
+  padding: 8px;
+  /* border: 2px solid black; */
+}
+
+.navbar-page-title {
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--navbar-title-color);
+}
+
+.navbar-icons {
+  float: right;
+  width: 300px;
+  height: 120%;
+  /* border: 2px solid brown; */
+}
+
+.navbar-icons ul {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: -4%;
+  list-style-type: none;
+  font-size: 2rem;
+  color: var(--navbar-title-color);
+}
+
+
+.user-icon-btn {
+  background: transparent;
+  border: transparent;
+  color: var(--navbar-title-color);
+  transition: filter 300ms;
+}
+
+.user-icon-btn:hover {
+  filter: brightness(1.4);
+}
+
+.dropdown-menu{
+  position: absolute;
+  top:58px;
+
+}

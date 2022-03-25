@@ -1,0 +1,111 @@
+:root {
+  --sidebar-color: #130a68;
+  --text-color: white;
+  --text-color-hover: rgb(230, 224, 224);
+  --main-container: #ebeff3;
+  --navbar-color: white;
+  --filter-form-bg:#F5F7F9;
+  --filter-btn-bg:#8EA0AE;
+
+  --trans-03: all 0.2s ease;
+  --trans-03: all 0.3s ease;
+  --trans-04: all 0.4s ease;
+  --trans-05: all 0.4s ease;
+
+  --sidebar-width-small: 5%;
+  --main-container-width: 90%;
+}
+
+.all-tickets-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  min-height: 100%;
+  /* border: 2px solid black; */
+}
+
+/* ------------- main container --------------- */
+
+.all-tickets-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--main-container);
+}
+
+/* ---------------main content -------------------- */
+.all-tickets-main-content {
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 96%;
+  height: 100vh;
+}
+
+/* ----------------------------- ALL Tickets -------------------------- */
+
+.all-tickets-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.all-tickets {
+  width: 80%;
+  height: 92vh;
+}
+
+/* ----------------------------- Ticket Filters ---------------------- */
+
+.filters {
+  margin-left: 1%;
+  width: 20%;
+  height: 98vh;
+  padding: 16px;
+  background-color: var(--filter-form-bg);
+}
+
+.filter-title{
+  color:#183247;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.filter-form-container{
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  height: 98%;
+  /* border: 2px solid black; */
+}
+
+.filter-form{
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  /* border: 2px solid black; */
+}
+
+#form-input-title{
+  margin-bottom: 1%;
+  font-weight: 400;
+  color: rgb(48, 48, 48);
+}
+
+.filter-input-select{
+  margin-bottom: 8%;
+  width: 96%;
+  height: 36px;
+  padding: 4px;
+  border-radius: 4px;
+
+}
+
+#filter-form-btn{
+  background-color: var(--filter-btn-bg);
+  color: var(--text-color);
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+}
+
+

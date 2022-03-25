@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import NewTicket from "./pages/New Ticket/NewTicket";
 import AllTickets from "./pages/All Tickets/AllTickets";
 import Settings from "./pages/Settings/Settings";
+import TicketPage from "./pages/TicketPage/TicketPage";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/new-ticket" element={<NewTicket />} />
         <Route path="/all-tickets" element={<AllTickets />} />
+        <Route path="/ticket-page" element={<TicketPage />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </>

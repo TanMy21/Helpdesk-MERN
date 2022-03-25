@@ -1,0 +1,8 @@
+
+/* --------------- action bar ------------------- */
+.main-action-bar{
+    width: 100%;
+    height: 60px;
+    background-color: var(--filter-form-bg);
+    box-shadow: 4px 2px 4px rgb(165, 165, 165);
+  }

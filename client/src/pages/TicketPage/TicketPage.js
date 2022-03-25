@@ -1,11 +1,12 @@
+import './ticket.page.css'
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { FaSignOutAlt } from "react-icons/fa";
 // import { logout, reset } from "../../features/auth/authSlice";
-import "./new.ticket.css";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
+import ActionBar from '../../components/ActionBar/ActionBar';
 
 const NewTicket = () => {
   const navigate = useNavigate();
@@ -34,10 +35,11 @@ const NewTicket = () => {
       <div className="wrapper">
         <Sidebar />
         <div className="main-container">
-          <Navbar title={"New Ticket"} />
+          <Navbar title={"All Tickets > 2"} />
+          <ActionBar />
           <div className="main-content">
             <div className="content d-flex align-items-center justify-content-center">
-              <h1>New Ticket</h1>
+              <h1>Ticket Page</h1>
             </div>
           </div>
         </div>
