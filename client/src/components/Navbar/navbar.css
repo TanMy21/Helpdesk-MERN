@@ -36,10 +36,16 @@
 
 .navbar-icons ul {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: space-around;
   margin-top: -4%;
   list-style-type: none;
   font-size: 2rem;
+  color: var(--navbar-title-color);
+}
+
+.navbar-icons li{
+  margin-right: 16%;
   color: var(--navbar-title-color);
 }
 
@@ -55,8 +61,7 @@
   filter: brightness(1.4);
 }
 
-.dropdown-menu{
+.dropdown-menu {
   position: absolute;
-  top:58px;
-
+  top: 58px;
 }

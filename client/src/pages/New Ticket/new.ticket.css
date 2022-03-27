@@ -2,8 +2,10 @@
   --sidebar-color: #130a68;
   --text-color: white;
   --text-color-hover: rgb(230, 224, 224);
-  --main-container: rgb(212, 212, 212);
+  --main-container: #8EA0AE;
   --navbar-color: white;
+  --ticket-submit-btn-color: #1A3C57;
+  --ticket-cancel-btn-color: #d7d9db;
 
   --trans-03: all 0.2s ease;
   --trans-03: all 0.3s ease;
@@ -15,7 +17,7 @@
   --main-container-width: 90%;
 }
 
-.wrapper {
+.new-ticket-wrapper {
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -25,7 +27,7 @@
 
 /* ------------- main container --------------- */
 
-.main-container {
+.new-ticket-main-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -34,8 +36,74 @@
 }
 
 /* ---------------main content -------------------- */
-.main-content {
-  margin-left: 1%;
+.new-ticket-main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 96%;
-  height: 100%;
+  height:100%;
+}
+
+.new-ticket-form-container{
+  display: flex;
+  justify-content: center;
+  margin-left: 10%;
+  width: 80%;
+  height: 92vh;
+  background-color: var(--text-color);
+}
+
+.new-ticket-form{
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px;
+  width: 80%;
+  height: 96%;
+
+}
+
+#new-ticket-text-input{
+  margin-top: 4px;
+  width: 100%;
+}
+
+#new-ticket-select-input{
+  margin-top: 4px;
+  width: 100%;
+  height: 36px;
+}
+
+#required-input-star{
+  color: red;
+  font-size: 1.2rem;
+}
+
+#ticket-form-label{
+  margin-top: 4px;
+}
+
+.frm-btn-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  justify-content: space-between;
+}
+
+#new-ticket-btn{
+  width: 120px;
+  height: 40px;
+  border: none;
+  color: var(--text-color);
+  background: var(--ticket-submit-btn-color);
+  border-radius: 4px;
+}
+
+#cancel-btn{
+  width: 120px;
+  height: 40px;
+  border: none;
+  color: var(--ticket-submit-btn-color);
+  font-weight: 500;
+  background: var(--ticket-cancel-btn-color);
+  border-radius: 4px;
 }

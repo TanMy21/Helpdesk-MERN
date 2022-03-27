@@ -1,0 +1,45 @@
+:root {
+  --sidebar-color: #130a68;
+  --text-color: white;
+  --text-color-hover: rgb(230, 224, 224);
+  --main-container: #8ea0ae;
+  --navbar-color: white;
+  --ticket-submit-btn-color: #1a3c57;
+  --ticket-cancel-btn-color: #d7d9db;
+
+  --trans-03: all 0.2s ease;
+  --trans-03: all 0.3s ease;
+  --trans-04: all 0.4s ease;
+  --trans-05: all 0.4s ease;
+
+  --sidebar-width-normal: 10%;
+  --sidebar-width-small: 4%;
+  --main-container-width: 90%;
+}
+
+.agents-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  /* border: 2px solid black; */
+}
+
+/* ------------- main container --------------- */
+
+.agents-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: var(--main-container);
+}
+
+/* ---------------main content -------------------- */
+.agents-main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 96%;
+  height: 100%;
+}

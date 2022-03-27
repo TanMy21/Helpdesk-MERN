@@ -1,0 +1,88 @@
+.menu {
+  position: relative;
+  margin-left: 12%;
+  display: inline-block;
+  z-index: 2;
+  padding: 0;
+  outline: 0;
+}
+
+.menu:focus {
+  pointer-events: none;
+}
+
+.menu:focus .menu-dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+#user-dropdown-btn{
+  cursor: pointer;
+}
+
+
+.menu-dropdown {
+  background-color: #ffffff;
+  width: 250px;
+  margin-top: 12%;
+  right: 0;
+  border-radius: 3px;
+  pointer-events: auto;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  visibility: visible;
+  transition: visibility 1s;
+  background: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.menu-dropdown a {
+  background: transparent;
+  border: none;
+  outline: 0;
+  display: block;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  width: 160px;
+  padding: 5px;
+}
+
+.dropdown-username-email {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background-color: #f5f7f9;
+}
+
+#dropdown-username {
+  display: flex;
+  flex-direction: row;
+  font-size: 1rem;
+  color: black;
+  font-weight: 500;
+}
+
+#user-lastname{
+  margin-left: 2%;
+}
+
+#dropdown-email {
+  font-size: 1rem;
+  color: #9da6ae;
+}
+
+#dropdown-logout {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+#dropdown-settings {
+  padding: 12px;
+  font-size: 1.2rem;
+}
+
+#dropdown-icon {
+  margin-left: 4%;
+}

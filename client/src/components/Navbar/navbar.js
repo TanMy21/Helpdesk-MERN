@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import "./navbar.css";
-import { MdNotifications } from "react-icons/md";
-import { FaUserCircle } from "react-icons/fa";
-import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { GrSearch } from "react-icons/gr";
+import Dropdown from "../Dropdown/Dropdown";
+import NewDropdown from "../NewDropdown/NewDropdown";
+import Notification from "../NotificationDropdown/NotificationDropdown";
+
 
 const Navbar = ({ title }) => {
 
-  const [dropdown, setDropdown] = useState(false);
 
 
   return (
@@ -15,20 +14,18 @@ const Navbar = ({ title }) => {
       <div className="navbar-content">
         <div className="navbar-page-title">{title}</div>
         <div className="navbar-icons">
-          <ul>
+          <ul className="navbar-icons-list">
             <li>
-              <MdNotifications />
+              <NewDropdown />
+            </li>
+            <li>
+              <GrSearch />
+            </li>
+            <li>
+              <Notification />
             </li>
             <li className="dropdown">
-              <button className="user-icon-btn" onClick={() => setDropdown(!dropdown)}>
-                <FaUserCircle />
-              </button>
-        {dropdown &&  (<div className="dropdown-menu">
-                <Link to="/logout" className="text-decoration-none dropdown-link">
-                  Logout
-                  <span><MdLogout id="logout-icon"/></span>
-                </Link>
-              </div>)}
+              <Dropdown />
             </li>
           </ul>
         </div>
