@@ -1,118 +1,240 @@
 :root {
-    --sidebar-color: #130a68;
-    --text-color: white;
-    --text-color-hover: rgb(230, 224, 224);
-    --main-container: rgb(212, 212, 212);
-    --navbar-color: white;
-  
-    --trans-03: all 0.2s ease;
-    --trans-03: all 0.3s ease;
-    --trans-04: all 0.4s ease;
-    --trans-05: all 0.4s ease;
-  
-    --sidebar-width-normal: 10%;
-    --sidebar-width-small: 4%;
-    --main-container-width: 90%;
-  }
-  
-  .wrapper {
-    display: flex;
-    flex-direction: row;
-    width: 100vw;
-    height: 100vh;
-    /* border: 2px solid black; */
-  }
-  
-  /* ------------- main container --------------- */
-  
-  .main-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    background: var(--main-container);
-  }
-  
-  /* ---------------main content -------------------- */
-  .main-content {
-    margin-left: 1%;
-    width: 96%;
-    height: 100%;
-  }
-  
+  --sidebar-color: #130a68;
+  --text-color: white;
+  --text-color-hover: rgb(230, 224, 224);
+  --main-container: rgb(212, 212, 212);
+  --navbar-color: white;
 
-  /* --------------------- ticket content----------------------- */
-  .ticket-content{
-    display: flex;
-    flex-direction: row;
-    width: 105%;
-    height: 100%;
-    margin-left: -2%;
-  }
+  --trans-03: all 0.2s ease;
+  --trans-03: all 0.3s ease;
+  --trans-04: all 0.4s ease;
+  --trans-05: all 0.4s ease;
 
-  .ticket-details-container{
-    width: 70%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    z-index:0;
-  }
+  --sidebar-width-normal: 10%;
+  --sidebar-width-small: 4%;
+  --main-container-width: 90%;
+}
 
-  .ticket-details-status{
-    width: 100%;
-    height: 50px;
-    border: 2px solid black;
-  }
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  /* border: 2px solid black; */
+}
 
-  .ticket-details{
-    width: 100%;
-    height: 400px;
-    border: 2px solid black;
-  }
-  
-  .ticket-header{
-    display: flex;
-    flex-direction: row;
-    padding-left:40px;
-    width: 100%;
-    height: 80px;
-    border: 2px solid black;
-  }
+/* ------------- main container --------------- */
 
- #ticket-header-icon{
-    font-size: 2rem;
-  }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: var(--main-container);
+}
 
-  .ticket-header-subject-created-at{
-    display: flex;
-    flex-direction: column;
-    margin-left:1%;
-    width: 60%;
-    height: 96%;
-    border: 3px solid brown;
-  }
+/* ---------------main content -------------------- */
+.main-content {
+  margin-left: 1%;
+  width: 96%;
+  height: 100%;
+}
 
-  .ticket-header-subject{
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
+/* --------------------- ticket content----------------------- */
+.ticket-content {
+  display: flex;
+  flex-direction: row;
+  width: 105%;
+  height: 100%;
+  margin-left: -2%;
+}
 
-  .ticket-content-container{
-    width: 70%;
-    height: 80%;
-    border: 2px solid springgreen;
-  }
+.ticket-details-container {
+  width: 70%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  z-index: 0;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.ticket-details-status {
+  width: 100%;
+  height: 50px;
+  /* border: 2px solid black; */
+}
+
+.ticket-details {
+  width: 100%;
+  height: 400px;
+  margin-left: 4%;
+}
+
+.ticket-header {
+  display: flex;
+  flex-direction: row;
+  padding-left: 40px;
+  width: 100%;
+  height: 80px;
+}
+
+#ticket-header-icon {
+  font-size: 2rem;
+  margin-left: -20%;
+}
+
+.ticket-header-subject-created-at {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 96%;
+  margin-left: 1%;
+}
+
+.ticket-header-subject {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.ticket-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 80%;
+}
+
+.ticket-content-header-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.ticket-content-header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2%;
+}
+
+.reported-via {
+  margin-left: 2%;
+}
+
+.ticket-content-username {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+}
+
+.ticket-content-user-img {
+  width: 64px;
+  height: 64px;
+  background-color: rgb(205, 209, 212);
+}
+
+.ticket-content-description {
+  margin-left: 8%;
+  padding: 12px;
+  width: 70%;
+  height: 76%;
+}
+
+/* ------------------- ticket update form --------------------- */
+
+.update-ticket-container {
+  width: 16%;
+  height: 100%;
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.update-form-title {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#update-form-tags-input {
+  margin-top: 4%;
+  width: 250px;
+}
+
+.update-form {
+  margin-top: 16%;
+}
+
+#update-select-label{
+  margin-top: 8%;
+}
+
+.update-form-select{
+  margin-top: 2%;
+  width: 250px;
+  height: 36px;
+}
+
+#update-form-btn{
+  width: 250px;
+  height: 32px;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  background-color: #8FA1AF;
+  border: none;
+  border-radius: 4px;
+}
 
 
+/* ---------------- contact details -------------------------- */
 
-  .update-ticket-container{
-    width: 16%;
-    height: 100%;
-    background-color: blueviolet;
-  }
+.contact-details-container {
+  display: flex;
+  justify-content: center;
+  width: 14%;
+  height: 100%;
+  background-color: #EBEFF3;
+}
 
-  .contact-details-container{
-    width: 14%;
-    height: 100%;
-    background-color: chartreuse;
-  }
+.contact-details{
+  display: flex;
+  flex-direction: column;
+  margin-top: 4%;
+  border-radius: 12px 12px 0px 0px;
+  width: 92%;
+  height: 300px;
+}
 
+.contact-details-header{
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  color: rgb(49, 49, 49);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px  8px 0px 0px;
+  background-color: #dcdddd;
+}
+
+.contact-details-content{
+  width: 100%;
+  height: 90%;
+  padding: 12px;
+  border-radius: 0px 0px 8px 8px;
+  background-color: #ffffff;
+}
+
+.ticket-user-img-name{
+  display: flex;
+  flex-direction: row;
+}
+
+.ticket-user-img{
+  width: 40px;
+  height: 40px;
+  margin-right: 4%;
+  background-color: #8FA1AF;
+}
+
+
+/* ----------------------- actionbar btns ------------------------ */
+.ticket-page-actionbar-btns-container{
+  width: 80%;
+  height: 90%;
+  border: 2px solid black;
+}
