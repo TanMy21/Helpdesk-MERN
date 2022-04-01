@@ -2,7 +2,7 @@
   --sidebar-color: #130a68;
   --text-color: white;
   --text-color-hover: rgb(230, 224, 224);
-  --main-container: #8ea0ae;
+  --main-container: #EBEFF3;
   --navbar-color: white;
   --ticket-submit-btn-color: #1a3c57;
   --ticket-cancel-btn-color: #d7d9db;
@@ -21,7 +21,8 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 100vh;
+  height:100vh;
+  min-height: 900px;
   /* border: 2px solid black; */
 }
 
@@ -35,111 +36,136 @@
   background: var(--main-container);
 }
 
-/* ---------------main content -------------------- */
-.agents-main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 96%;
-  height: 100%;
-}
 
-/* ------------------ agents ------------------------ */
-.agents-container {
-  width: 95vw;
-  height: 98%;
-  margin-left: 8px;
-  padding: 80px;
-  background-color: white;
-}
-
-.agents-header {
+.agents-container{
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 70%;
-  height: 70px;
+  width: 96vw;
+  height:96%;
 }
 
-.agents-title {
-  font-size: 2rem;
-  color: #12344d;
+
+/* --------------- agents section -------------------- */
+.agents-section{
+  width: 80%;
+  height: 100%;
+  padding: 24px;
+  background-color: #ffffff;
+  border-right: 1px solid rgb(212, 212, 212);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.agents-section-title{
+  width: 70%;
+  height: 50px;
+}
+
+#agents-section-title{
+  color: #1a3c57;
+}
+
+.agents-table-container{
+  width: 96%;
+  height: 90%;
+  padding: 50px;
+
+}
+
+.agents-table-header{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 52px;
+  background-color: #dbdedf;
+}
+
+.table-header-col{
+  width: 33.33%;
+  height: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.table-agents-col{
+  display: flex;
+  align-items: center;
+  width: 33.33%;
+  height: 100%;
+  padding: 12px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
-.new-agent-btn {
+.agents-table-row{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 36px;
-  color: white;
-  border-radius: 6px;
-  border: 1px solid #1a3c57;
-  background-color: #12344d;
+  width: 90%;
+  height: 60px;
+  border-bottom: 1px solid rgb(238, 238, 238);
 }
 
-.agents-table-container {
-  margin-top: 4%;
-}
-
-.agents-tables-sort {
-  width: 70%;
-  height: 50px;
-  border: 2px solid black;
-}
-
-.agents-table {
-  margin-top: 1%;
-  width: 70%;
-  height: auto;
-  /* border: 2px solid black; */
-}
-
-.agents-table-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px;
-  padding-right: 150px;
-  width: 100%;
-  height: 50px;
-  background-color: #eeeeee;
-}
-
-.agents-table-row {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 70px;
-  padding: 12px;
-  border-bottom: 1px solid rgb(199, 198, 198);
-}
-
-.agents-table-row-name {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.table-agent-icon {
-  width: 48px;
-  height: 48px;
-  background-color: #8ea0ae;
+.agent-table-icon{
+  width: 40px;
+  height:40px;
+  border-radius: 4px;
+  background-color: #1a3c57;
 }
 
 .agent-name-email{
-  margin-left: 8%;
+  width: 80%;
+  height: 48px;
+  margin-left: 4%;
 }
 
-.agents-table-row-role {
-  align-items: center;
-  margin-left: 26%;
+#agent-email{
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: #202020;
 }
 
-.agents-table-row-last-seen{
-  align-items: center;
-  margin-left: 36%;
+#agent-role{
+  font-weight: 200;
+}
+
+#agent-last-seen{
+  font-weight: 200;
+}
+
+/* -------------------- agents form ------------------------- */
+.new-agent-form-container{
+  width: 20%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+}
+
+.new-agent-header{
+  padding: 24px;
+  color: #1a3c57;
+}
+
+.new-agent-form{
+  padding: 52px;
+}
+
+#agent-type{
+  margin-top: 2%;
+  width: 92%;
+}
+
+#agent-form-label{
+  margin-top: 4%;
+}
+
+#agent-text-input{
+  margin-top: 2%;
+  width: 92%;
+}
+
+#create-agent-btn{
+  width: 92%;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: #1a3c57;
 }

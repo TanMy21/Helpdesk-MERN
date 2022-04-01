@@ -19,15 +19,15 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/new-ticket" element={<NewTicket />} />
-        <Route path="/all-tickets" element={<AllTickets />} />
-        <Route path="/ticket-page" element={<TicketPage />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/agents" element={<Agents />} />
-        <Route path="/error" element={<Error />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/new-ticket" element={<NewTicket />} />
+        <Route exact path="/all-tickets" element={<AllTickets />} />
+        <Route exact path="/ticket-page" element={<TicketPage />} />
+        <Route exact path="/settings" element={<Settings />} />
+        <Route exact path="/agents" element={<Agents />} />
+        <Route exact path="/error" element={<Error />} />
       </Routes>
     </>
   );

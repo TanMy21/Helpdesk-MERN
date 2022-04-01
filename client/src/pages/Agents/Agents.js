@@ -35,28 +35,53 @@ const Agents = () => {
       <div className="agents-wrapper">
         <Sidebar />
         <div className="agents-main-container">
-          <Navbar title={"Admin > Agents"} />
-          <div className="agents-main-content">
-            <div className="agents-container">
-              <div className="agents-header">
-                <div className="agents-title">Agents</div>
-                <div className="new-agent-btn">New agent</div>
-              </div>
+          <Navbar
+            title={"Admin > "}
+            subTitle={"Agents"}
+            titleLink="/settings"
+          />
+          <div className="agents-container">
+            <div className="agents-section">
+              <section className="agents-section-title">
+                <h2 id="agents-section-title">Agents</h2>
+              </section>
               <div className="agents-table-container">
-                <div className="agents-tables-sort"></div>
-                <div className="agents-table">
-                  <div className="agents-table-header">
-                    <div>Name</div>
-                    <div>Role</div>
-                    <div>Last Seen</div>
-                  </div>
-                  <div>
-                    <AgentsRow />
-                    <AgentsRow />
-                    <AgentsRow />
-                  </div>
+                <div className="agents-table-header">
+                  <div className="table-header-col">Name</div>
+                  <div className="table-header-col">Role</div>
+                  <div className="table-header-col">Last Seen</div>
                 </div>
+                <AgentsRow />
+                <AgentsRow />
+                <AgentsRow />
+                <AgentsRow />
               </div>
+            </div>
+            <div className="new-agent-form-container">
+              <section className="new-agent-header">
+                <h3>New Agent</h3>
+              </section>
+              <section className="new-agent-form">
+                <form> 
+                  <label htmlFor="agent-type">Agent Type:</label>
+                  <br />
+                  <select id="agent-type" name="agent-type">
+                    <option value="volvo">Agent</option>
+                    <option value="saab">Admin</option>
+                  </select>
+                  <br />
+                  <label htmlFor="agent-type" id="agent-form-label">Full Name:</label>
+                  <br />
+                  <input type="text" id="agent-text-input"/>
+                  <br />
+                  <label htmlFor="agent-type" id="agent-form-label">Email:</label>
+                  <br />
+                  <input type="text" id="agent-text-input"/>
+                  <br />
+                  <hr />
+                  <input type="submit" value="Create agent" id="create-agent-btn"/>
+                </form>
+              </section>
             </div>
           </div>
         </div>

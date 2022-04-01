@@ -9,6 +9,7 @@
   width: 100%;
   height: 60px;
   background: var(--navbar-color);
+  border-bottom: 1px solid #ebeff3;
 }
 
 .navbar-content {
@@ -44,11 +45,14 @@
   color: var(--navbar-title-color);
 }
 
-.navbar-icons li{
+.navbar-icons li {
   margin-right: 16%;
   color: var(--navbar-title-color);
 }
 
+.navbar-search-icon {
+  color: var(--navbar-title-color);
+}
 
 .user-icon-btn {
   background: transparent;

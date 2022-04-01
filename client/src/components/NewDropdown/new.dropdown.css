@@ -45,9 +45,9 @@
   border-radius: 3px;
   pointer-events: auto;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
-  visibility: visible;
+  visibility: hidden;
   transition: visibility 1s;
   font-size: 1rem;
   background: #ffffff;
@@ -55,8 +55,6 @@
 }
 
 .new-menu-dropdown a {
-  background: transparent;
-  border: none;
   outline: 0;
   display: block;
   color: rgb(0, 0, 0);
@@ -65,9 +63,9 @@
   padding: 5px;
 }
 
-.dropdown-links:hover{
-    width: 100%;
-    padding: 8px;
-    background-color: #e6e6e6;
-    border-radius: 4px;
+#new-dropdown-links:hover {
+  width: 100%;
+  padding: 8px;
+  background-color: #e6e6e6;
+  border-radius: 4px;
 }

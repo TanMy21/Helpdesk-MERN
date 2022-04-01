@@ -4,30 +4,40 @@ const ticketSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please Provide name"],
-    },
-    subject: {
-      type: String,
-      required: true,
-    },
-    product: {
-      type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: [true, "Please provide an Email!"],
-      unique: [true, "Email Already Exist"],
     },
-    assigned: {
+    phone: {
       type: String,
-      required: true,
+    },
+    subject: {
+      type: String,
+    },
+    type: {
+      type: String,
+    },
+    source: {
+      type: String,
     },
     status: {
       type: String,
-      required: true,
-      enum: ["new", "open", "closed"],
-      default: "new",
+    },
+    priority: {
+      type: String,
+    },
+    assigned: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    tags: {
+      type: Array,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {

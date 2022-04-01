@@ -2,7 +2,7 @@
     --sidebar-color: #130a68;
     --text-color: white;
     --text-color-hover: rgb(230, 224, 224);
-    --main-container: rgb(212, 212, 212);
+    --main-container: #EBEFF3;
     --navbar-color: white;
     --settings-title-color:rgb(1, 49, 71);
     --settings-color:#073f74;
@@ -21,7 +21,8 @@
     display: flex;
     flex-direction: row;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     /* border: 2px solid black; */
   }
   
@@ -32,7 +33,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: var(--main-container);
   }
   
