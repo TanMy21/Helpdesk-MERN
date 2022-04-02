@@ -38,7 +38,7 @@ const Agents = () => {
           <Navbar
             title={"Admin > "}
             subTitle={"Agents"}
-            titleLink="/settings"
+            titleLink="settings"
           />
           <div className="agents-container">
             <div className="agents-section">

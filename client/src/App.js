@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/new-ticket" element={<NewTicket />} />
         <Route exact path="/all-tickets" element={<AllTickets />} />
-        <Route exact path="/ticket-page" element={<TicketPage />} />
+        <Route exact path="/ticket-page/:ticketId" element={<TicketPage />} />
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/agents" element={<Agents />} />
         <Route exact path="/error" element={<Error />} />

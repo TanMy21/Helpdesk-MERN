@@ -6,13 +6,14 @@ import Notification from "../NotificationDropdown/NotificationDropdown";
 import { Link } from "react-router-dom";
 
 const Navbar = ({ title, subTitle, titleLink }) => {
-  console.log(titleLink);
 
   return (
     <nav className="navbar page-navbar">
       <div className="navbar-content">
         <div className="navbar-page-title">
-          {title}
+          <Link to={`/${titleLink}`} className="text-decoration-none">
+            {title}
+          </Link>
           {subTitle}
         </div>
         <div className="navbar-icons">

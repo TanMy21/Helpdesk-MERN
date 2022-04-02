@@ -25,9 +25,7 @@ const NewTicket = () => {
   const [tags, setTags] = useState("");
 
   const { user } = useSelector((state) => state.auth);
-  const { isSuccess } = useSelector(
-    (state) => state.tickets
-  );
+  const { isSuccess } = useSelector((state) => state.tickets);
 
   useEffect(() => {
     if (!user) {
@@ -39,22 +37,18 @@ const NewTicket = () => {
     };
   }, [user, navigate, dispatch]);
 
-
   useEffect(() => {
     // if (isError) {
     //   toast.error(message)
     // }
 
     if (isSuccess) {
-      dispatch(reset())
-      navigate('/new-ticket')
+      dispatch(reset());
+      navigate("/new-ticket");
     }
 
-    dispatch(reset())
-  }, [dispatch, isSuccess ,navigate])
-
-
-
+    dispatch(reset());
+  }, [dispatch, isSuccess, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -80,7 +74,7 @@ const NewTicket = () => {
       <div className="new-ticket-wrapper">
         <Sidebar />
         <div className="new-ticket-main-container">
-          <Navbar title={"New Ticket"} />
+          <Navbar title={"New Ticket"} titleLink="new-ticket" />
           <div className="new-ticket-main-content">
             <div className="new-ticket-content">
               <div className="new-ticket-form-container">
@@ -188,9 +182,6 @@ const NewTicket = () => {
                       <option value="Pending">Pending</option>
                       <option value="Resolved">Resolved</option>
                       <option value="Closed">Closed</option>
-                      <option value="Waiting for Customer">
-                        Waiting for customer
-                      </option>
                     </select>
                     <br />
                     <label htmlFor="type" id="ticket-form-label">

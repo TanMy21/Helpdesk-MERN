@@ -1,19 +1,22 @@
 import "./ticket.page.css";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { FaSignOutAlt } from "react-icons/fa";
-// import { logout, reset } from "../../features/auth/authSlice";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
 import ActionBar from "../../components/ActionBar/ActionBar";
 import { BsTelephone } from "react-icons/bs";
+import { getTicket, reset } from "../../features/tickets/ticketSlice";
+import classNames from "classnames";
 
-const NewTicket = () => {
+const TicketPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const params = useParams();
+  const { ticketId } = useParams();
 
   const { user } = useSelector((state) => state.auth);
+  const { ticket, isSuccess } = useSelector((state) => state.tickets);
 
   useEffect(() => {
     if (!user) {
@@ -25,25 +28,32 @@ const NewTicket = () => {
     };
   }, [user, navigate, dispatch]);
 
-  // const onLogout = () => {
-  //   dispatch(logout());
-  //   dispatch(reset());
-  //   navigate("/");
-  // };
+  useEffect(() => {
+    dispatch(getTicket(ticketId));
+  }, [ticketId]);
 
   return (
     <>
       <div className="wrapper">
         <Sidebar />
         <div className="main-container">
-          <Navbar title={"All Tickets > 2"} />
+          <Navbar title={"All Tickets > 2"} titleLink="all-tickets" />
           <ActionBar>
             <div className="ticket-page-actionbar-btns-container"></div>
           </ActionBar>
           <div className="main-content">
             <div className="ticket-content">
               <div className="ticket-details-container">
-                <div className="ticket-details-status"></div>
+                <div
+                  className={classNames("ticket-details-status", {
+                    "ticket-page-tag-open": ticket.status === "Open",
+                    "ticket-page-tag-pending": ticket.status === "Pending",
+                    "ticket-page-tag-resolved": ticket.status === "Resolved",
+                    "ticket-page-tag-closed": ticket.status === "Closed",
+                  })}
+                >
+                  {ticket.status}
+                </div>
                 <div className="ticket-details">
                   <div className="ticket-header">
                     <div className="ticket-header-icon">
@@ -51,37 +61,34 @@ const NewTicket = () => {
                     </div>
                     <div className="ticket-header-subject-created-at">
                       <div className="ticket-header-subject">
-                        TICKET HEADER SUBJECT
+                        {ticket.subject}
                       </div>
-                      <div className="ticket-header-created-at">CREATED AT</div>
+                      <div className="ticket-header-created-at">
+                        {ticket.createdAt}
+                      </div>
                     </div>
                   </div>
                   <div className="ticket-content-container">
                     <div className="ticket-content-header-container">
-                      <div className="ticket-content-user-img"></div>
+                      <div className="ticket-content-user-img">
+                        <div className="ticket-user-icon-char">
+                          {ticket.name}
+                        </div>
+                      </div>
                       <div className="ticket-content-header">
                         <div className="ticket-content-username">
-                          <div className="ticket-username">User Name</div>
-                          <div className="reported-via">reported via</div>
+                          <div className="ticket-username">{ticket.name}</div>
+                          <div className="reported-via">
+                            reported via &nbsp;<span>{ticket.source}</span>
+                          </div>
                         </div>
                         <div className="ticket-content-created-at">
-                          CREATED AT DATE TIME
+                          {ticket.createdAt}
                         </div>
                       </div>
                     </div>
                     <div className="ticket-content-description">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Duis sagittis massa vel lacus finibus accumsan nec eget
-                        nulla. Morbi a commodo libero, ac consectetur tellus.
-                        Integer tincidunt nibh sed mi scelerisque, eu porttitor
-                        lectus vestibulum. Nulla facilisi. Etiam ut porttitor
-                        leo. Nulla ornare nisl sapien, et faucibus nisi molestie
-                        quis. Maecenas suscipit ac elit vel finibus. Aliquam
-                        varius et est vitae tristique. Mauris non erat mauris.
-                        Nullam condimentum luctus auctor. Vivamus accumsan
-                        tellus vel mattis bibendum.
-                      </p>
+                      <p>{ticket.description}</p>
                     </div>
                   </div>
                 </div>
@@ -90,7 +97,7 @@ const NewTicket = () => {
                 <div className="update-form-title">UPDATE TICKET</div>
                 <div className="update-form">
                   <form>
-                    <label for="update-form-tags">Tags</label>
+                    <label htmlFor="update-form-tags">Tags</label>
                     <br />
                     <input
                       type="text"
@@ -98,7 +105,7 @@ const NewTicket = () => {
                       name="update-tags"
                     />
                     <br />
-                    <label for="update-type" id="update-select-label">
+                    <label htmlFor="update-type" id="update-select-label">
                       Type
                     </label>
                     <br />
@@ -113,7 +120,7 @@ const NewTicket = () => {
                       <option value="refund">Refund</option>
                     </select>
                     <br />
-                    <label for="update-status" id="update-select-label">
+                    <label htmlFor="update-status" id="update-select-label">
                       Status
                     </label>
                     <br />
@@ -128,7 +135,7 @@ const NewTicket = () => {
                       <option value="closed">Closed</option>
                     </select>
                     <br />
-                    <label for="update-priority" id="update-select-label">
+                    <label htmlFor="update-priority" id="update-select-label">
                       Priority
                     </label>
                     <br />
@@ -143,7 +150,7 @@ const NewTicket = () => {
                       <option value="urgent">Urgent</option>
                     </select>
                     <br />
-                    <label for="update-agent" id="update-select-label">
+                    <label htmlFor="update-agent" id="update-select-label">
                       Agent
                     </label>
                     <select
@@ -169,18 +176,18 @@ const NewTicket = () => {
                   <div className="contact-details-content">
                     <div className="ticket-user-img-name">
                       <div className="ticket-user-img"></div>
-                      <div className="ticket-user-name">User name</div>
+                      <div className="ticket-user-name">{ticket.name}</div>
                     </div>
                     <div className="ticket-user-email">
                       <div className="ticket-user-email-label">Email</div>
                       <div className="ticket-user-email-text">
-                        username@email.com
+                        {ticket.email}
                       </div>
                     </div>
                     <div className="ticket-user-phone">
                       <div className="ticket-user-phone-label">Phone</div>
                       <div className="ticket-user-phone-text">
-                        +xx xxxx xxx xxx
+                        {ticket.phone}
                       </div>
                     </div>
                   </div>
@@ -194,4 +201,4 @@ const NewTicket = () => {
   );
 };
 
-export default NewTicket;
+export default TicketPage;

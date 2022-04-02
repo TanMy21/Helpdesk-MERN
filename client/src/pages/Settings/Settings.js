@@ -51,7 +51,7 @@ const Settings = () => {
       <div className="wrapper">
         <Sidebar />
         <div className="main-container">
-          <Navbar title={"Settings"} />
+          <Navbar title={"Settings"} titleLink="settings"/>
           <div className="main-content">
             <div className="content d-flex align-items-center justify-content-center">
               <div className="channel-settings-container">

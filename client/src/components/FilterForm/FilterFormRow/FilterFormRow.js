@@ -1,7 +1,7 @@
 const FilterFormRow = ({rowLabel}) => {
   return (
     <div className="filter-form-row">
-      <label for="agents" id="form-input-title">
+      <label htmlFor="agents" id="form-input-title">
         {rowLabel}
       </label>
       <select

@@ -1,12 +1,40 @@
 import { BsTelephone } from "react-icons/bs";
+import { MdForum } from "react-icons/md";
+import { HiOutlineMail } from "react-icons/hi";
+import { TiSocialTwitter } from "react-icons/ti";
 import { BsDot } from "react-icons/bs";
 import { FaSquare } from "react-icons/fa";
 import { HiOutlineUserAdd } from "react-icons/hi";
 import { GrStatusGoodSmall } from "react-icons/gr";
 import "./ticket.css";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
-const Ticket = () => {
+
+const Ticket = ({
+  ticketId,
+  ticketStatus,
+  ticketSubject,
+  ticketSource,
+  ticketUserName,
+}) => {
+
+
+  const sourceIcon = () => {
+    if (ticketSource === "Phone") {
+      return <BsTelephone />;
+    }
+    if (ticketSource === "Forum") {
+      return <MdForum />;
+    }
+    if (ticketSource === "Email") {
+      return <HiOutlineMail />;
+    }
+    if (ticketSource === "Social Media") {
+      return <TiSocialTwitter />;
+    }
+  };
+
   return (
     <div className="ticket">
       <div className="ticket-checkbox">
@@ -14,32 +42,33 @@ const Ticket = () => {
       </div>
       <div className="ticket-description">
         <div className="ticket-status">
-          <p className="ticket-status-tag">New</p>
+          <p
+            className={classNames({
+              "tag-open": ticketStatus === "Open",
+              "tag-pending": ticketStatus === "Pending",
+              "tag-resolved": ticketStatus === "Resolved",
+              "tag-closed": ticketStatus === "Closed",
+            })}
+          >
+            {ticketStatus}
+          </p>
         </div>
         <div className="ticket-subject">
-          <Link to="/ticket-page" className="text-decoration-none">
-            <p id="ticket-subject">Android App Down</p>
+          <Link to={`/ticket-page/${ticketId}`} className="text-decoration-none">
+            <p id="ticket-subject">{ticketSubject}</p>
           </Link>
           <span id="ticket-no">#100</span>
         </div>
         <div className="ticket-info">
-          <div className="ticket-channel-icon">
-            <BsTelephone />
-          </div>
+          <div className="ticket-channel-icon">{sourceIcon()}</div>
           <div className="ticket-user-name">
-            <p>Username</p>
+            <p>{ticketUserName}</p>
           </div>
           <div id="dot">
             <BsDot />
           </div>
           <div className="ticket-created">
             <p>Created sometime ago</p>
-          </div>
-          <div id="dot">
-            <BsDot />
-          </div>
-          <div className="ticket-response-due">
-            <p>First response due</p>
           </div>
         </div>
       </div>

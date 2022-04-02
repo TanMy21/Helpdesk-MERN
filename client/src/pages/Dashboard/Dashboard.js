@@ -38,7 +38,7 @@ function Dashboard() {
       <div className="db-wrapper">
         <Sidebar className="db-sidebar" />
         <div className="db-main-container">
-          <Navbar title={"Dashboard"} />
+          <Navbar title={"Dashboard"} titleLink="dashboard"/>
           <ActionBar />
           <div className="db-main-content">
             <div className="content">
