@@ -10,7 +10,8 @@ const {
 
 const { protect } = require("../middleware/auth.middleware");
 
-router.route("/").get(protect, getTickets).post(protect, createTicket);
+router.route("/").post(protect, createTicket).get(protect, getTickets);
+
 
 router
   .route("/:id")

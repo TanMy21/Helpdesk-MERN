@@ -16,11 +16,15 @@ const createTicket = async (ticketData, token) => {
 };
 
 // Get user tickets
-const getTickets = async (token) => {
+const getTickets = async (pg, token) => {
+
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params:{
+      page:pg
+    }
   };
 
   const response = await axios.get(API_URL, config);

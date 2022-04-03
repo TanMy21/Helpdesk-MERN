@@ -1,7 +1,7 @@
 import "./action.bar.css";
 
-const ActionBar = () => {
-  return <div className="main-action-bar"></div>;
+const ActionBar = ({ children }) => {
+  return <div className="main-action-bar">{children}</div>;
 };
 
 export default ActionBar;

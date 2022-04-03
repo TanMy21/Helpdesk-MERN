@@ -7,6 +7,11 @@ const Ticket = require("../models/ticket.model");
 // @route   GET /api/tickets
 // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
+  //pagination
+  const PAGE_SIZE = 3;
+  const PAGE = parseInt(req.query.page || "0");
+  const total = await Ticket.countDocuments({ user: req.user.id });
+
   // Get user using the id in the JWT
   const user = await User.findById(req.user.id);
 
@@ -15,9 +20,13 @@ const getTickets = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const tickets = await Ticket.find({ user: req.user.id });
+  const Alltickets = await Ticket.find({ user: req.user.id })
+    .limit(PAGE_SIZE)
+    .skip(PAGE_SIZE * PAGE);
 
-  res.status(200).json(tickets);
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+
+  res.status(200).json({ totalPages, Alltickets });
 });
 
 // @desc    Get user ticket
@@ -32,13 +41,7 @@ const getTicket = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  console.log("ticket controller params :-",req.params.id);
-
   const ticket = await Ticket.findById(req.params.id);
-
-  console.log("ticket controller:- ", ticket);
-
-
 
   if (!ticket) {
     res.status(404);
@@ -71,33 +74,13 @@ const createTicket = asyncHandler(async (req, res) => {
     tags,
   } = req.body;
 
-  console.log("Endpoint Hit")
-
-
   // Get user using the id in the JWT
   const user = await User.findById(req.user.id);
-
-  console.log("user hit",user);
 
   if (!user) {
     res.status(401);
     throw new Error("User not found");
   }
-
-  console.log("name:-", name)
-  console.log("email:-", email)
-  console.log("phone:-", phone)
-  console.log("subject:-", subject)
-  console.log("type:-", type)
-  console.log("source:-", source)
-  console.log("status:-", status)
-  console.log("priority:-", priority)
-  console.log("assigned:-", agent)
-  console.log("Description:-", description)
-  console.log("tags:-", tags)
-
-
-
 
   const ticket = await Ticket.create({
     name,
@@ -115,9 +98,6 @@ const createTicket = asyncHandler(async (req, res) => {
   });
 
   res.status(201).json(ticket);
-
-  console.log("ticket hit",ticket);
-
 });
 
 // @desc    Delete ticket

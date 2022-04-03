@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const ConnectDB = require("./config/ConnectDB");
 const userRoutes = require("./routes/user.routes");
 const ticketRoutes = require("./routes/ticket.routes");
+const agentRoutes = require("./routes/agents.routes");
 const { errorHandler } = require("./middleware/error.middleware");
 //env
 dotenv.config();
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/", userRoutes);
 app.use("/api/tickets", ticketRoutes);
+app.use("/api/agent", agentRoutes);
 
 app.use(errorHandler);
 

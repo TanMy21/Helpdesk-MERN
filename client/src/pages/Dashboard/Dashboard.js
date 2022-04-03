@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { FaSignOutAlt } from "react-icons/fa";
-// import { logout, reset } from "../../features/auth/authSlice";
 import "./dashboard.css";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
@@ -27,11 +25,7 @@ function Dashboard() {
     };
   }, [user, navigate, dispatch]);
 
-  // const onLogout = () => {
-  //   dispatch(logout());
-  //   dispatch(reset());
-  //   navigate("/");
-  // };
+
 
   return (
     <>
