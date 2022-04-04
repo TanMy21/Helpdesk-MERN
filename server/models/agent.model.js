@@ -11,6 +11,12 @@ const agentSchema = new mongoose.Schema(
     email: {
       type: String,
     },
+    password: {
+      type: String,
+    },
+    OrganizationName: {
+      type: String,
+    },
   },
   {
     timestamps: true,
