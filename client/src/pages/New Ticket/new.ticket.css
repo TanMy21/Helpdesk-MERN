@@ -2,9 +2,9 @@
   --sidebar-color: #130a68;
   --text-color: white;
   --text-color-hover: rgb(230, 224, 224);
-  --main-container: #8EA0AE;
+  --main-container: #8ea0ae;
   --navbar-color: white;
-  --ticket-submit-btn-color: #1A3C57;
+  --ticket-submit-btn-color: #1a3c57;
   --ticket-cancel-btn-color: #d7d9db;
 
   --trans-03: all 0.2s ease;
@@ -42,10 +42,10 @@
   flex-direction: column;
   justify-content: center;
   width: 96%;
-  height:auto;
+  height: auto;
 }
 
-.new-ticket-form-container{
+.new-ticket-form-container {
   display: flex;
   justify-content: center;
   margin-top: 1%;
@@ -55,43 +55,57 @@
   background-color: var(--text-color);
 }
 
-.new-ticket-form{
+.new-ticket-form {
   display: flex;
   flex-direction: column;
   padding: 24px 24px;
   width: 80%;
   height: 96%;
-
 }
 
-#new-ticket-text-input{
-  margin-top: 4px;
-  width: 100%;
-}
-
-#new-ticket-select-input{
+#new-ticket-text-input {
   margin-top: 4px;
   width: 100%;
   height: 36px;
+  border: 1px double #b4b6b8;
+  border-radius: 4px;
 }
 
-#required-input-star{
+#new-ticket-select-input {
+  margin-top: 4px;
+  width: 100%;
+  height: 36px;
+  border: 1px double #b4b6b8;
+  border-radius: 4px;
+}
+
+#new-ticket-select-input select{
+  padding: 4px;
+  height: 200px;
+}
+
+#required-input-star {
   color: red;
   font-size: 1.2rem;
 }
 
-#ticket-form-label{
+#ticket-form-label {
   margin-top: 4px;
 }
 
-.frm-btn-container{
+#ticket-form-description {
+  border: 1px double #b4b6b8;
+  border-radius: 4px;
+}
+
+.frm-btn-container {
   display: flex;
   flex-direction: row;
   justify-content: end;
   justify-content: space-between;
 }
 
-#new-ticket-btn{
+#new-ticket-btn {
   width: 120px;
   height: 40px;
   border: none;
@@ -100,7 +114,7 @@
   border-radius: 4px;
 }
 
-#cancel-btn{
+#cancel-btn {
   width: 120px;
   height: 40px;
   border: none;

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { FaSignOutAlt } from "react-icons/fa";
-// import { logout, reset } from "../../features/auth/authSlice";
 import "./new.ticket.css";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
 import { createTicket, reset } from "../../features/tickets/ticketSlice";
+import { getAgents } from "../../features/agents/agentSlice";
 
 const NewTicket = () => {
   const navigate = useNavigate();
@@ -26,6 +25,8 @@ const NewTicket = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { isSuccess } = useSelector((state) => state.tickets);
+
+  const { agents } = useSelector((state) => state.agents);
 
   useEffect(() => {
     if (!user) {
@@ -47,6 +48,8 @@ const NewTicket = () => {
       navigate("/new-ticket");
     }
 
+    dispatch(getAgents());
+
     dispatch(reset());
   }, [dispatch, isSuccess, navigate]);
 
@@ -67,6 +70,17 @@ const NewTicket = () => {
         tags,
       })
     );
+    setName("");
+    setEmail("");
+    setPhone("");
+    setSubject("");
+    setType("Question");
+    setSource("Phone");
+    setStatus("Open");
+    setPriority("Low");
+    setAgent("Agent 1");
+    setDescription("");
+    setTags("");
   };
 
   return (
@@ -143,11 +157,24 @@ const NewTicket = () => {
                       onChange={(e) => setType(e.target.value)}
                       required
                     >
-                      <option value="Question">Question</option>
-                      <option value="Incident">Incident</option>
-                      <option value="Problem">Problem</option>
-                      <option value="Feature Request">Feature Request</option>
-                      <option value="Refund">Refund</option>
+                      <option value="Question" id="new-ticket-select-option">
+                        Question
+                      </option>
+                      <option value="Incident" id="new-ticket-select-option">
+                        Incident
+                      </option>
+                      <option value="Problem" id="new-ticket-select-option">
+                        Problem
+                      </option>
+                      <option
+                        value="Feature Request"
+                        id="new-ticket-select-option"
+                      >
+                        Feature Request
+                      </option>
+                      <option value="Refund" id="new-ticket-select-option">
+                        Refund
+                      </option>
                     </select>
                     <br />
                     <label htmlFor="type" id="ticket-form-label">
@@ -212,10 +239,13 @@ const NewTicket = () => {
                       onChange={(e) => setAgent(e.target.value)}
                       required
                     >
-                      <option value="Agent 1">Agent 1</option>
-                      <option value="Agent 2">Agent 2</option>
-                      <option value="Agent 3">Agent 3</option>
-                      <option value="Agent 4">Agent 4</option>
+                      {typeof agents === typeof [] && (
+                        <>
+                          {agents.map((agent, index) => (
+                            <option value={agent.name}>{agent.name}</option>
+                          ))}
+                        </>
+                      )}
                     </select>
                     <br />
                     <br />

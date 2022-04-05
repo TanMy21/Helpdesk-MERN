@@ -167,9 +167,23 @@
   height: 48px;
 }
 
-#priority-square-icon {
+/* ---------------- Ticket Meta Priority  ------------------ */
+
+.priority-square-low {
   margin-right: 12px;
-  color: blue;
+  color: #13792b;
+}
+.priority-square-medium {
+  margin-right: 12px;
+  color: #007bff;
+}
+.priority-square-high {
+  margin-right: 12px;
+  color: #ff9307;
+}
+.priority-square-urgent {
+  margin-right: 12px;
+  color: #dc3545;
 }
 
 #ticket-priority {
@@ -252,10 +266,25 @@
 }
 
 /* -------------------------------- status ---------------------------------- */
-#status-icon {
+.status-icon-open {
   margin-right: 12px;
   font-size: 1.2rem;
-  color: rgb(226, 169, 13);
+  color: #007bff;
+}
+.status-icon-pending {
+  margin-right: 12px;
+  font-size: 1.2rem;
+  color: #dc3545;
+}
+.status-icon-resolved {
+  margin-right: 12px;
+  font-size: 1.2rem;
+  color: #ffc107;
+}
+.status-icon-closed {
+  margin-right: 12px;
+  font-size: 1.2rem;
+  color: #28a745;
 }
 
 #ticket-status {

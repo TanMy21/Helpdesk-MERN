@@ -20,6 +20,7 @@ function AllTickets() {
 
   const { tickets, isSuccess } = useSelector((state) => state.tickets);
 
+
   const { totalPages } = tickets;
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function AllTickets() {
 
   useEffect(() => {
     dispatch(getTickets(page));
+
   }, [dispatch, page]);
 
   const pageChangePrev = () => {
@@ -72,6 +74,7 @@ function AllTickets() {
                           ticketSubject={ticket.subject}
                           ticketSource={ticket.source}
                           ticketUserName={ticket.name}
+                          ticketPriority={ticket.priority}
                         />
                       ))}
                     </>

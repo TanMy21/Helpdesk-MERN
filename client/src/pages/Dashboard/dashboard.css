@@ -84,3 +84,14 @@
   height: 500px;
   border: 2px solid white;
 }
+
+.traffic-analysis{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 100%;
+  padding: 24px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: white;
+}

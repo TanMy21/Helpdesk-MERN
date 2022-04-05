@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { FaSignOutAlt } from "react-icons/fa";
-// import { logout, reset } from "../../features/auth/authSlice";
 import "./agents.css";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
@@ -38,11 +36,16 @@ const Agents = () => {
 
   useEffect(() => {
     dispatch(getAgents());
-  }, [dispatch]);
+  }, [dispatch,navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(createAgent({ type, name, email, password }));
+    setType("Agent");
+    setName("");
+    setEmail("");
+    setPassword("");
+    navigate("/agents");
   };
 
   return (

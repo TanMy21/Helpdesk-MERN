@@ -9,7 +9,9 @@ import { GrStatusGoodSmall } from "react-icons/gr";
 import "./ticket.css";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-
+import { useSelector, useDispatch } from "react-redux";
+import { getAgents } from "../../features/agents/agentSlice";
+import { useEffect, useState } from "react";
 
 const Ticket = ({
   ticketId,
@@ -17,8 +19,14 @@ const Ticket = ({
   ticketSubject,
   ticketSource,
   ticketUserName,
+  ticketPriority,
 }) => {
+  const dispatch = useDispatch();
 
+  const { agents } = useSelector((state) => state.agents);
+
+  const [ticketMetaPriority, setTicketMetaPriority] = useState(ticketPriority);
+  const [ticketMetaStatus, setTicketMetaStatus] = useState(ticketStatus);
 
   const sourceIcon = () => {
     if (ticketSource === "Phone") {
@@ -34,6 +42,10 @@ const Ticket = ({
       return <TiSocialTwitter />;
     }
   };
+
+  useEffect(() => {
+    dispatch(getAgents());
+  }, [dispatch]);
 
   return (
     <div className="ticket">
@@ -54,7 +66,10 @@ const Ticket = ({
           </p>
         </div>
         <div className="ticket-subject">
-          <Link to={`/ticket-page/${ticketId}`} className="text-decoration-none">
+          <Link
+            to={`/ticket-page/${ticketId}`}
+            className="text-decoration-none"
+          >
             <p id="ticket-subject">{ticketSubject}</p>
           </Link>
           <span id="ticket-no">#100</span>
@@ -74,19 +89,36 @@ const Ticket = ({
       </div>
       <div className="ticket-meta">
         <div className="ticket-priority-assign">
-          <div>
-            <FaSquare id="priority-square-icon" />
+          <div
+            className={classNames({
+              "priority-square-low": ticketMetaPriority === "Low",
+              "priority-square-medium": ticketMetaPriority === "Medium",
+              "priority-square-high": ticketMetaPriority === "High",
+              "priority-square-urgent": ticketMetaPriority === "Urgent",
+            })}
+          >
+            <FaSquare />
           </div>
           <div>
             <select
               name="priority"
               id="ticket-priority"
               className="custom-select"
+              value={ticketMetaPriority}
+              onChange={(e) => setTicketMetaPriority(e.target.value)}
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-              <option value="urgent">Urgent</option>
+              <option value="Low">
+                {ticketPriority === "Low" ? ticketPriority : `Low`}
+              </option>
+              <option value="Medium">
+                {ticketPriority === "Medium" ? `Medium` : `Low`}
+              </option>
+              <option value="High">
+                {ticketPriority === "High" ? `Low` : `High`}
+              </option>
+              <option value="Urgent">
+                {ticketPriority === "Urgent" ? `Low` : `Urgent`}
+              </option>
             </select>
           </div>
         </div>
@@ -96,23 +128,48 @@ const Ticket = ({
           </div>
           <div>
             <select name="assign-agent" id="select-agent">
-              <option value="agent 1">Agent 1</option>
-              <option value="agent 2">Agent 2</option>
-              <option value="agent 3">Agent 3</option>
-              <option value="agent 4">Agent 4</option>
+              {typeof agents === typeof [] && (
+                <>
+                  {agents.map((agent, index) => (
+                    <option key={agent.name} value={agent.name}>
+                      {agent.name}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
           </div>
         </div>
         <div className="ticket-status-assign">
-          <div>
+          <div
+            className={classNames({
+              "status-icon-open": ticketMetaStatus === "Open",
+              "status-icon-pending": ticketMetaStatus === "Pending",
+              "status-icon-resolved": ticketMetaStatus === "Resolved",
+              "status-icon-closed": ticketMetaStatus === "Closed",
+            })}
+          >
             <GrStatusGoodSmall id="status-icon" />
           </div>
           <div>
-            <select name="status" id="ticket-status">
-              <option value="open">Open</option>
-              <option value="pending">Pending</option>
-              <option value="resolved">Resolved</option>
-              <option value="closed">Closed</option>
+            <select
+              name="status"
+              id="ticket-status"
+              value={ticketMetaStatus}
+              onChange={(e) => setTicketMetaStatus(e.target.value)}
+            >
+              <option value="Open">
+                {ticketStatus === "Open" ? ticketStatus : `Open`}
+              </option>
+              <option value="Pending">
+                {ticketStatus === "Pending" ? `Pending` : `Open`}
+              </option>
+              <option value="Resolved">
+                {ticketStatus === "Resolved" ? `Open` : `Resolved`}
+              </option>
+              <option value="Closed">
+                {ticketStatus === "Closed" ? `Open` : `Closed`}
+              </option>
             </select>
           </div>
         </div>
