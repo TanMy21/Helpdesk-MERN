@@ -14,6 +14,8 @@ import {
 } from "../../features/tickets/ticketSlice";
 import "./all.tickets.css";
 import ActionBarBtns from "../../components/ActionBarBtns/ActionBarBtns";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 function AllTickets() {
   const navigate = useNavigate();
@@ -25,14 +27,13 @@ function AllTickets() {
 
   const { tickets, isSuccess } = useSelector((state) => state.tickets);
 
-  // const [allChecked, setAllChecked] = useState(false);
-
-  const [loading, setLoading] = useState(true);
-
-
-  // const [isChecked, setIsChecked] = useState(false);
-
   const [deleteTickets, setDeleteTickets] = useState([]);
+
+  const [ticketsData, setTicketsData] = useState([]);
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const [allChecked, setAllChecked] = useState(false);
 
   const { totalPages } = tickets;
 
@@ -50,6 +51,9 @@ function AllTickets() {
     dispatch(getTickets(page));
   }, [dispatch, page]);
 
+  useEffect(() => {
+    setTicketsData(tickets?.Alltickets);
+  }, [tickets]);
 
   const pageChangePrev = () => {
     setPage(Math.max(0, page - 1));
@@ -60,13 +64,7 @@ function AllTickets() {
   };
 
   const handleAllChecked = (e) => {
-    const { name, checked} = e.target;
-    if(name === "checkAll"){
-      let tempTicket = tickets?.Alltickets.map((ticket) = {
-        return {...ticket, isChecked:checked};
-      });
-      
-    }
+    setAllChecked(e.target.checked);
   };
 
   const handleSingleCheck = (id) => {
@@ -84,12 +82,32 @@ function AllTickets() {
   console.log(deleteTickets);
 
   const handleDelete = () => {
-    dispatch(deleteTicket(deleteTickets));
+    confirmAlert({
+      title: `Delete ${deleteTickets.length} Ticket(s)`,
+      message: "Are you sure you want to proceed?",
+      buttons: [
+        { label: "Cancel", onClick: () => alert("Click No") },
+        {
+          label: "Confirm",
+          onClick: () => dispatch(deleteTicket(deleteTickets)),
+        },
+      ],
+    });
   };
+
+  useEffect(() => {
+    if (allChecked) {
+      setIsChecked(true);
+    } else {
+      console.log(allChecked);
+    }
+  }, [allChecked]);
 
   const handleFilters = () => {
     console.log("");
   };
+
+  // console.log(ticketsData);
 
   return (
     <>
@@ -99,8 +117,8 @@ function AllTickets() {
           <Navbar title={"All Tickets"} titleLink="all-tickets" />
           <ActionBar>
             <ActionBarBtns
-              allChecked={tickets.Alltickets}
-              handleAllChecked={handleAllChecked}
+              checked={allChecked}
+              onChange={handleAllChecked}
               handleDelete={handleDelete}
             />
             <Pagination
@@ -114,9 +132,9 @@ function AllTickets() {
             <div className="all-tickets-container">
               <div className="all-tickets">
                 <>
-                  {typeof tickets.Alltickets === typeof [] && (
+                  {typeof ticketsData === typeof [] && (
                     <>
-                      {tickets.Alltickets.map((ticket, index) => (
+                      {ticketsData.map((ticket, index) => (
                         <Ticket
                           key={ticket._id}
                           ticketId={ticket._id}
@@ -126,8 +144,8 @@ function AllTickets() {
                           ticketUserName={ticket.name}
                           ticketPriority={ticket.priority}
                           ticketDateTime={ticket.createdAt}
-                          isChecked={ticket?.isChecked || false}
-                          checkedOnChange={handleAllChecked}
+                          checked={isChecked[ticket.id]}
+                          onChange={handleSingleCheck}
                         />
                       ))}
                     </>
@@ -144,5 +162,4 @@ function AllTickets() {
     </>
   );
 }
-
 export default AllTickets;
