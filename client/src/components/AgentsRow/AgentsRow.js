@@ -1,4 +1,12 @@
-const AgentsRow = ({ agentName, agentEmail, agentRole }) => {
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+const AgentsRow = ({
+  agentId,
+  agentName,
+  agentEmail,
+  agentRole,
+  handleDelete,
+}) => {
   return (
     <div className="agents-table-row">
       <div className="table-agents-col">
@@ -15,6 +23,11 @@ const AgentsRow = ({ agentName, agentEmail, agentRole }) => {
       </div>
       <div className="table-agents-col" id="agent-last-seen">
         x hours ago.
+      </div>
+      <div className="table-agents-col" id="agent-delete">
+        <div className="agent-delete-btn" onClick={() => handleDelete(agentId)}>
+          <RiDeleteBin6Line />
+        </div>
       </div>
     </div>
   );

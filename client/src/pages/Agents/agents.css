@@ -2,7 +2,7 @@
   --sidebar-color: #130a68;
   --text-color: white;
   --text-color-hover: rgb(230, 224, 224);
-  --main-container: #EBEFF3;
+  --main-container: #ebeff3;
   --navbar-color: white;
   --ticket-submit-btn-color: #1a3c57;
   --ticket-cancel-btn-color: #d7d9db;
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height:100vh;
+  height: 100vh;
   min-height: 900px;
   /* border: 2px solid black; */
 }
@@ -36,17 +36,15 @@
   background: var(--main-container);
 }
 
-
-.agents-container{
+.agents-container {
   display: flex;
   flex-direction: row;
   width: 96vw;
-  height:96%;
+  height: 96%;
 }
 
-
 /* --------------- agents section -------------------- */
-.agents-section{
+.agents-section {
   width: 80%;
   height: 100%;
   padding: 24px;
@@ -55,23 +53,22 @@
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.agents-section-title{
+.agents-section-title {
   width: 70%;
   height: 50px;
 }
 
-#agents-section-title{
+#agents-section-title {
   color: #1a3c57;
 }
 
-.agents-table-container{
+.agents-table-container {
   width: 96%;
   height: 90%;
   padding: 50px;
-
 }
 
-.agents-table-header{
+.agents-table-header {
   display: flex;
   flex-direction: row;
   width: 90%;
@@ -79,93 +76,109 @@
   background-color: #dbdedf;
 }
 
-.table-header-col{
-  width: 33.33%;
+.table-header-col {
+  width: 25%;
   height: 100%;
   padding: 12px;
   font-size: 1rem;
   font-weight: 400;
 }
 
-.table-agents-col{
+.table-agents-col {
   display: flex;
   align-items: center;
-  width: 33.33%;
+  width: 25%;
   height: 100%;
   padding: 12px;
   font-size: 1rem;
   font-weight: 600;
 }
 
-.agents-table-row{
+.agents-table-row {
   display: flex;
   width: 90%;
   height: 60px;
   border-bottom: 1px solid rgb(238, 238, 238);
 }
 
-.agent-table-icon{
+.agent-table-icon {
   width: 40px;
-  height:40px;
+  height: 40px;
   border-radius: 4px;
   background-color: #1a3c57;
 }
 
-.agent-name-email{
+.agent-name-email {
   width: 80%;
   height: 48px;
   margin-left: 4%;
 }
 
-#agent-email{
+#agent-email {
   font-size: 0.8rem;
   font-weight: 200;
   color: #202020;
 }
 
-#agent-role{
+#agent-role {
   font-weight: 200;
 }
 
-#agent-last-seen{
+#agent-last-seen {
   font-weight: 200;
 }
 
 /* -------------------- agents form ------------------------- */
-.new-agent-form-container{
+.new-agent-form-container {
   width: 20%;
   height: 100%;
   background-color: rgb(255, 255, 255);
 }
 
-.new-agent-header{
+.new-agent-header {
   padding: 24px;
   color: #1a3c57;
 }
 
-.new-agent-form{
+.new-agent-form {
   padding: 52px;
 }
 
-#agent-type{
+#agent-type {
   margin-top: 2%;
   width: 92%;
 }
 
-#agent-form-label{
+#agent-form-label {
   margin-top: 4%;
 }
 
-#agent-text-input{
+#agent-text-input {
   margin-top: 2%;
   width: 92%;
 }
 
-#create-agent-btn{
+#create-agent-btn {
   width: 92%;
   height: 36px;
   border: none;
   border-radius: 4px;
   color: white;
   background-color: #1a3c57;
+}
+
+.agent-delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color:#12344D;
+  background-color: #DEDEE0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.agent-delete-btn:hover {
+  filter: brightness(104%);
 }

@@ -51,6 +51,32 @@ export const getAgents = createAsyncThunk(
   }
 );
 
+// Delete Agent
+export const deleteAgent = createAsyncThunk(
+  "agents/delete",
+  async (agentId, thunkAPI) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+
+      console.log("Agent Slice:- ", agentId);
+
+      return await agentService.deleteAgent(agentId, token);
+
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+
+
 export const agentSlice = createSlice({
   name: "agent",
   initialState,
@@ -67,6 +93,18 @@ export const agentSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(createAgent.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteAgent.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteAgent.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(deleteAgent.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

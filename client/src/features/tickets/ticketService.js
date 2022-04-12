@@ -32,6 +32,19 @@ const getTickets = async (pg, token) => {
   return response.data;
 };
 
+// Get user tickets
+const getTicketsInfo = async (token) => {
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL + 'data', config);
+  return response.data;
+};
+
 // Get user ticket
 const getTicket = async (ticketId, token) => {
   const config = {
@@ -43,6 +56,40 @@ const getTicket = async (ticketId, token) => {
   const response = await axios.get(API_URL + ticketId, config);
 
   return response.data;
+};
+
+// Update ticket
+const updateTicket = async (ticketUpdate, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.patch(API_URL, ticketUpdate, config);
+
+  return response.data;
+};
+
+// Delete ticket
+const deleteTicket = async (ticketDelete, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }, 
+    data:{
+      ticketDelete
+    }
+  };
+
+  console.log("Service:-  ",ticketDelete);
+
+  const response = await axios.delete(API_URL, config);
+  
+  console.log("Response:- ", response);
+
+  return response.data;
+
 };
 
 // Close ticket
@@ -65,7 +112,10 @@ const closeTicket = async (ticketId, token) => {
 const ticketService = {
   createTicket,
   getTickets,
+  getTicketsInfo,
   getTicket,
+  updateTicket,
+  deleteTicket,
   closeTicket,
 };
 

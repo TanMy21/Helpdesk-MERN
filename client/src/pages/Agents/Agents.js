@@ -8,8 +8,11 @@ import AgentsRow from "../../components/AgentsRow/AgentsRow";
 import {
   createAgent,
   getAgents,
+  deleteAgent,
   reset,
 } from "../../features/agents/agentSlice";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Agents = () => {
   const navigate = useNavigate();
@@ -36,16 +39,28 @@ const Agents = () => {
 
   useEffect(() => {
     dispatch(getAgents());
-  }, [dispatch,navigate]);
+  }, [dispatch, navigate, agents]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(createAgent({ type, name, email, password }));
+    navigate("/agents");
     setType("Agent");
     setName("");
     setEmail("");
     setPassword("");
-    navigate("/agents");
+  };
+
+  const handleDelete = (id) => {
+    confirmAlert({
+      title: "Delete Agent",
+      message:
+        "This will remove all agent information from the helpdesk. Are you sure you want to proceed?",
+      buttons: [
+        { label: "Cancel", onClick: () => alert("Click No") },
+        { label: "Confirm", onClick: () => dispatch(deleteAgent(id)) },
+      ],
+    });
   };
 
   return (
@@ -70,9 +85,11 @@ const Agents = () => {
                     <>
                       {agents.map((agent, index) => (
                         <AgentsRow
+                          agentId={agent._id}
                           agentName={agent.name}
                           agentEmail={agent.email}
                           agentRole={agent.type}
+                          handleDelete={handleDelete}
                         />
                       ))}
                     </>

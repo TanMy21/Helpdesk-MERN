@@ -3,7 +3,7 @@ import { getAgents } from "../../features/agents/agentSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-const FilterForm = () => {
+const FilterForm = ({handleFilters}) => {
   const created = [
     "Any Time",
     "Yesterday",
@@ -64,7 +64,7 @@ const FilterForm = () => {
           <FilterFormRow rowLabel={"Type"} Options={type} />
           <FilterFormRow rowLabel={"Source"} Options={source} />
           <hr />
-          <input type="submit" value="Apply" id="filter-form-btn" />
+          <input type="submit" value="Apply" id="filter-form-btn" onClick={handleFilters}/>
         </form>
       </div>
     </>

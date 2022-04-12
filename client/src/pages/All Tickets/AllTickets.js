@@ -7,8 +7,13 @@ import Ticket from "../../components/Ticket/Ticket";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import ActionBar from "../../components/ActionBar/ActionBar";
 import Pagination from "../../components/Pagination/Pagination";
-import { getTickets, reset } from "../../features/tickets/ticketSlice";
+import {
+  getTickets,
+  reset,
+  deleteTicket,
+} from "../../features/tickets/ticketSlice";
 import "./all.tickets.css";
+import ActionBarBtns from "../../components/ActionBarBtns/ActionBarBtns";
 
 function AllTickets() {
   const navigate = useNavigate();
@@ -20,6 +25,14 @@ function AllTickets() {
 
   const { tickets, isSuccess } = useSelector((state) => state.tickets);
 
+  // const [allChecked, setAllChecked] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+
+
+  // const [isChecked, setIsChecked] = useState(false);
+
+  const [deleteTickets, setDeleteTickets] = useState([]);
 
   const { totalPages } = tickets;
 
@@ -31,12 +44,12 @@ function AllTickets() {
     return () => {
       // dispatch(reset());
     };
-  }, [user, navigate, dispatch, tickets]);
+  }, [user, navigate, dispatch]);
 
   useEffect(() => {
     dispatch(getTickets(page));
-
   }, [dispatch, page]);
+
 
   const pageChangePrev = () => {
     setPage(Math.max(0, page - 1));
@@ -46,6 +59,38 @@ function AllTickets() {
     setPage(Math.min(totalPages - 1, page + 1));
   };
 
+  const handleAllChecked = (e) => {
+    const { name, checked} = e.target;
+    if(name === "checkAll"){
+      let tempTicket = tickets?.Alltickets.map((ticket) = {
+        return {...ticket, isChecked:checked};
+      });
+      
+    }
+  };
+
+  const handleSingleCheck = (id) => {
+    let updateList;
+
+    if (deleteTickets.includes(id)) {
+      updateList = deleteTickets.filter((item) => item !== id);
+    } else {
+      updateList = [...deleteTickets, id];
+    }
+
+    setDeleteTickets(updateList);
+  };
+
+  console.log(deleteTickets);
+
+  const handleDelete = () => {
+    dispatch(deleteTicket(deleteTickets));
+  };
+
+  const handleFilters = () => {
+    console.log("");
+  };
+
   return (
     <>
       <div className="all-tickets-wrapper">
@@ -53,6 +98,11 @@ function AllTickets() {
         <div className="all-tickets-main-container">
           <Navbar title={"All Tickets"} titleLink="all-tickets" />
           <ActionBar>
+            <ActionBarBtns
+              allChecked={tickets.Alltickets}
+              handleAllChecked={handleAllChecked}
+              handleDelete={handleDelete}
+            />
             <Pagination
               page={page}
               totalPages={totalPages}
@@ -75,6 +125,9 @@ function AllTickets() {
                           ticketSource={ticket.source}
                           ticketUserName={ticket.name}
                           ticketPriority={ticket.priority}
+                          ticketDateTime={ticket.createdAt}
+                          isChecked={ticket?.isChecked || false}
+                          checkedOnChange={handleAllChecked}
                         />
                       ))}
                     </>
@@ -82,7 +135,7 @@ function AllTickets() {
                 </>
               </div>
               <div className="filters">
-                <FilterForm />
+                <FilterForm handleFilters={handleFilters} />
               </div>
             </div>
           </div>

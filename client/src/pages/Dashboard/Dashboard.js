@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./dashboard.css";
@@ -8,22 +8,29 @@ import Card from "../../components/Card/Card";
 import Graph from "../../components/Graph/Graph";
 import ActionBar from "../../components/ActionBar/ActionBar";
 import TrafficPieChart from "../../components/PieChart/TrafficPieChart";
+import { getTicketsInfo } from "../../features/tickets/ticketSlice";
 
 function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.auth);
+
+  const { ticketsInfo, isSuccess } = useSelector((state) => state.tickets);
+
+  const [ticketsData, setTicketsData] = useState();
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
+  }, [user, navigate]);
 
-    return () => {
-      // dispatch(reset());
-    };
-  }, [user, navigate, dispatch]);
+  useEffect(() => {
+    dispatch(getTicketsInfo());
+  }, [dispatch]);
+
+  const ticketsStatus = ticketsInfo?.ticketsDataStatus;
+  const ticketsSource = ticketsInfo?.ticketsDataSource;
 
   return (
     <>
@@ -35,11 +42,11 @@ function Dashboard() {
           <div className="db-main-content">
             <div className="content">
               <div className="cards-container">
-                <Card title={"Unresolved"} value={25} />
-                <Card title={"Overdue"} value={25} />
-                <Card title={"Due Today"} value={25} />
-                <Card title={"Open"} value={25} />
-                <Card title={"On Hold"} value={25} />
+                <Card title={"Unresolved"} value={ticketsStatus?.[0].Pending} />
+                <Card title={"Overdue"} value={"NA"} />
+                <Card title={"Closed"} value={ticketsStatus?.[0].Closed} />
+                <Card title={"Open"} value={ticketsStatus?.[0].Open} />
+                <Card title={"Resolved"} value={ticketsStatus?.[0].Resolved} />
               </div>
               <div className="graph-container">
                 <Graph />
@@ -50,7 +57,7 @@ function Dashboard() {
                     Traffic Analysis
                   </section>
                   <div className="pie-chart-container">
-                    <TrafficPieChart />
+                    <TrafficPieChart source={ticketsSource}/>
                   </div>
                 </div>
                 <div className="performance"></div>

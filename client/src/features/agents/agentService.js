@@ -17,7 +17,6 @@ const createAgent = async (agentData, token) => {
 
 // Get Agents
 const getAgents = async (token) => {
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,14 +25,28 @@ const getAgents = async (token) => {
 
   const response = await axios.get(API_URL, config);
 
+  return response.data;
+};
+
+//Delete Agent
+const deleteAgent = async (agentId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  };
+
+  console.log("Agent Service:- ", agentId);
+
+  const response = await axios.delete(API_URL + agentId , config);
 
   return response.data;
 };
 
-
 const agentService = {
   createAgent,
   getAgents,
+  deleteAgent,
 };
 
 export default agentService;

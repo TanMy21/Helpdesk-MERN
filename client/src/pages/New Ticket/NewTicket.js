@@ -242,7 +242,9 @@ const NewTicket = () => {
                       {typeof agents === typeof [] && (
                         <>
                           {agents.map((agent, index) => (
-                            <option value={agent.name}>{agent.name}</option>
+                            <option key={agent.name} value={agent.name}>
+                              {agent.name}
+                            </option>
                           ))}
                         </>
                       )}

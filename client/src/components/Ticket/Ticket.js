@@ -12,6 +12,8 @@ import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { getAgents } from "../../features/agents/agentSlice";
 import { useEffect, useState } from "react";
+import Moment from "react-moment";
+import moment from "moment";
 
 const Ticket = ({
   ticketId,
@@ -20,6 +22,9 @@ const Ticket = ({
   ticketSource,
   ticketUserName,
   ticketPriority,
+  ticketDateTime,
+  isChecked,
+  checkedOnChange,
 }) => {
   const dispatch = useDispatch();
 
@@ -27,6 +32,8 @@ const Ticket = ({
 
   const [ticketMetaPriority, setTicketMetaPriority] = useState(ticketPriority);
   const [ticketMetaStatus, setTicketMetaStatus] = useState(ticketStatus);
+
+  console.log("Ticket:- ", isChecked);
 
   const sourceIcon = () => {
     if (ticketSource === "Phone") {
@@ -50,7 +57,15 @@ const Ticket = ({
   return (
     <div className="ticket">
       <div className="ticket-checkbox">
-        <input type="checkbox" id="ticket-checkbox" name="ticket1" value="" />
+        <input
+          type="checkbox"
+          id="ticket-checkbox"
+          name={ticketId}
+          checked={isChecked[ticketId]}
+          onChange={() => {
+            checkedOnChange(ticketId);
+          }}
+        />
       </div>
       <div className="ticket-description">
         <div className="ticket-status">
@@ -83,7 +98,9 @@ const Ticket = ({
             <BsDot />
           </div>
           <div className="ticket-created">
-            <p>Created sometime ago</p>
+            <p>
+              Created <Moment fromNow>{ticketDateTime}</Moment>
+            </p>
           </div>
         </div>
       </div>
@@ -111,13 +128,13 @@ const Ticket = ({
                 {ticketPriority === "Low" ? ticketPriority : `Low`}
               </option>
               <option value="Medium">
-                {ticketPriority === "Medium" ? `Medium` : `Low`}
+                {ticketPriority === "Medium" ? ticketPriority : `Medium`}
               </option>
               <option value="High">
-                {ticketPriority === "High" ? `Low` : `High`}
+                {ticketPriority === "High" ? ticketPriority : `High`}
               </option>
               <option value="Urgent">
-                {ticketPriority === "Urgent" ? `Low` : `Urgent`}
+                {ticketPriority === "Urgent" ? ticketPriority : `Urgent`}
               </option>
             </select>
           </div>
@@ -162,13 +179,13 @@ const Ticket = ({
                 {ticketStatus === "Open" ? ticketStatus : `Open`}
               </option>
               <option value="Pending">
-                {ticketStatus === "Pending" ? `Pending` : `Open`}
+                {ticketStatus === "Pending" ? ticketStatus : `Pending`}
               </option>
               <option value="Resolved">
-                {ticketStatus === "Resolved" ? `Open` : `Resolved`}
+                {ticketStatus === "Resolved" ? ticketStatus : `Resolved`}
               </option>
               <option value="Closed">
-                {ticketStatus === "Closed" ? `Open` : `Closed`}
+                {ticketStatus === "Closed" ? ticketStatus : `Closed`}
               </option>
             </select>
           </div>

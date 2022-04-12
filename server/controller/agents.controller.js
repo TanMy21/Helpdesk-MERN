@@ -63,7 +63,21 @@ const getAgents = asyncHandler(async (req, res) => {
   res.status(200).json(AllAgents);
 });
 
+// @desc    Delete Agent
+// @route   DELETE /api/agent
+// @access  Private
+const deleteAgent = asyncHandler(async (req, res) => {
+  // Destructure request body object
+
+  console.log("Delete Agent:- ", req.params.id);
+
+  const response = await Agent.deleteOne({ _id: req.params.id });
+
+  return response.data;
+});
+
 module.exports = {
   createAgent,
   getAgents,
+  deleteAgent,
 };

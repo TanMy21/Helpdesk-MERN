@@ -1,13 +1,20 @@
 import "./ticket.page.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
 import ActionBar from "../../components/ActionBar/ActionBar";
 import { BsTelephone } from "react-icons/bs";
-import { getTicket, reset } from "../../features/tickets/ticketSlice";
+import {
+  getTicket,
+  updateTicket,
+  reset,
+} from "../../features/tickets/ticketSlice";
+import { getAgents } from "../../features/agents/agentSlice";
 import classNames from "classnames";
+import Moment from "react-moment";
+import moment from "moment";
 
 const TicketPage = () => {
   const navigate = useNavigate();
@@ -15,8 +22,14 @@ const TicketPage = () => {
   const params = useParams();
   const { ticketId } = useParams();
 
+  const [type, setType] = useState("Question");
+  const [status, setStatus] = useState("Open");
+  const [priority, setPriority] = useState("Low");
+  const [agent, setAgent] = useState("Agent 1");
+
   const { user } = useSelector((state) => state.auth);
   const { ticket, isSuccess } = useSelector((state) => state.tickets);
+  const { agents } = useSelector((state) => state.agents);
 
   useEffect(() => {
     if (!user) {
@@ -30,7 +43,17 @@ const TicketPage = () => {
 
   useEffect(() => {
     dispatch(getTicket(ticketId));
-  }, [ticketId]);
+    dispatch(getAgents());
+  }, [ticketId, dispatch, ticket]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateTicket({ ticketId, type, status, priority, agent }));
+  };
+
+  const createdDateTime = moment(new Date(ticket.createdAt)).format(
+    "dddd MMMM Do YYYY, h:mm a"
+  );
 
   return (
     <>
@@ -63,9 +86,7 @@ const TicketPage = () => {
                       <div className="ticket-header-subject">
                         {ticket.subject}
                       </div>
-                      <div className="ticket-header-created-at">
-                        {ticket.createdAt}
-                      </div>
+                      <div className="ticket-header-created-at">Created By</div>
                     </div>
                   </div>
                   <div className="ticket-content-container">
@@ -83,7 +104,10 @@ const TicketPage = () => {
                           </div>
                         </div>
                         <div className="ticket-content-created-at">
-                          {ticket.createdAt}
+                          <Moment fromNow>{ticket.createdAt}</Moment>
+                          <div className="ticket-day-datetime">
+                            {`(${createdDateTime})`}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -96,15 +120,7 @@ const TicketPage = () => {
               <div className="update-ticket-container">
                 <div className="update-form-title">UPDATE TICKET</div>
                 <div className="update-form">
-                  <form>
-                    <label htmlFor="update-form-tags">Tags</label>
-                    <br />
-                    <input
-                      type="text"
-                      id="update-form-tags-input"
-                      name="update-tags"
-                    />
-                    <br />
+                  <form onSubmit={onSubmit}>
                     <label htmlFor="update-type" id="update-select-label">
                       Type
                     </label>
@@ -113,11 +129,14 @@ const TicketPage = () => {
                       id="update-type"
                       name="update-type"
                       className="update-form-select"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                      required
                     >
-                      <option value="question">Question</option>
-                      <option value="incident">Incident</option>
-                      <option value="problem">Problem</option>
-                      <option value="refund">Refund</option>
+                      <option value="Question">Question</option>
+                      <option value="Incident">Incident</option>
+                      <option value="Problem">Problem</option>
+                      <option value="Refund">Refund</option>
                     </select>
                     <br />
                     <label htmlFor="update-status" id="update-select-label">
@@ -128,11 +147,14 @@ const TicketPage = () => {
                       id="update-status"
                       name="update-stauts"
                       className="update-form-select"
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                      required
                     >
-                      <option value="open">Open</option>
-                      <option value="resolved">Resolved</option>
-                      <option value="pending">Pending</option>
-                      <option value="closed">Closed</option>
+                      <option value="Open">Open</option>
+                      <option value="Resolved">Resolved</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Closed">Closed</option>
                     </select>
                     <br />
                     <label htmlFor="update-priority" id="update-select-label">
@@ -143,11 +165,14 @@ const TicketPage = () => {
                       id="update-priority"
                       name="update-priority"
                       className="update-form-select"
+                      value={priority}
+                      onChange={(e) => setPriority(e.target.value)}
+                      required
                     >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
-                      <option value="urgent">Urgent</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                      <option value="Urgent">Urgent</option>
                     </select>
                     <br />
                     <label htmlFor="update-agent" id="update-select-label">
@@ -157,11 +182,19 @@ const TicketPage = () => {
                       id="update-agent"
                       name="update-agent"
                       className="update-form-select"
+                      value={agent}
+                      onChange={(e) => setAgent(e.target.value)}
+                      required
                     >
-                      <option value="agent 1">Agent 1</option>
-                      <option value="agent 2">Agent 2</option>
-                      <option value="agent 3">Agent 3</option>
-                      <option value="agent 4">Agent 4</option>
+                      {typeof agents === typeof [] && (
+                        <>
+                          {agents.map((agent, index) => (
+                            <option key={agent.name} value={agent.name}>
+                              {agent.name}
+                            </option>
+                          ))}
+                        </>
+                      )}
                     </select>
                     <br />
                     <br />
