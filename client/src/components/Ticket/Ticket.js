@@ -25,6 +25,7 @@ const Ticket = ({
   ticketDateTime,
   checked,
   onChange,
+  checkBoxName,
 }) => {
   const dispatch = useDispatch();
 
@@ -32,9 +33,8 @@ const Ticket = ({
 
   const [ticketMetaPriority, setTicketMetaPriority] = useState(ticketPriority);
   const [ticketMetaStatus, setTicketMetaStatus] = useState(ticketStatus);
-
-  console.log("Ticket:- ", checked);
-
+  
+  
   const sourceIcon = () => {
     if (ticketSource === "Phone") {
       return <BsTelephone />;
@@ -60,11 +60,9 @@ const Ticket = ({
         <input
           type="checkbox"
           id="ticket-checkbox"
-          name={ticketId}
+          name={checkBoxName}
           checked={checked}
-          onChange={() => {
-            onChange(ticketId);
-          }}
+          onChange={onChange}
         />
       </div>
       <div className="ticket-description">

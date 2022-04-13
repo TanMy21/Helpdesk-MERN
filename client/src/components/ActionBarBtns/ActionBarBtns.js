@@ -1,11 +1,11 @@
 import "./action.bar.btns.css";
-const ActionBarBtns = ({ checked, onChange, handleDelete }) => {
+const ActionBarBtns = ({ checked, name, onChange, handleDelete }) => {
   return (
     <>
       <div className="action-bar-btns-container">
         <input
           type="checkbox"
-          name="checkAll"
+          name={name}
           id="actionbar-check-all"
           checked={checked}
           onChange={onChange}

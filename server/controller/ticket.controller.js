@@ -8,7 +8,7 @@ const Ticket = require("../models/ticket.model");
 // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
   //pagination
-  const PAGE_SIZE = 3;
+  const PAGE_SIZE = 5;
   const PAGE = parseInt(req.query.page || "0");
   const total = await Ticket.countDocuments({ user: req.user.id });
 

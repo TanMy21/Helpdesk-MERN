@@ -31,9 +31,9 @@ function AllTickets() {
 
   const [ticketsData, setTicketsData] = useState([]);
 
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 
-  const [allChecked, setAllChecked] = useState(false);
+  // const [allChecked, setAllChecked] = useState(false);
 
   const { totalPages } = tickets;
 
@@ -49,7 +49,7 @@ function AllTickets() {
 
   useEffect(() => {
     dispatch(getTickets(page));
-  }, [dispatch, page]);
+  }, [dispatch, page, deleteTicket]);
 
   useEffect(() => {
     setTicketsData(tickets?.Alltickets);
@@ -63,23 +63,56 @@ function AllTickets() {
     setPage(Math.min(totalPages - 1, page + 1));
   };
 
+  const addAllTickets = () => {
+    console.log(ticketsData);
+  };
+
   const handleAllChecked = (e) => {
-    setAllChecked(e.target.checked);
-  };
+    const { name, checked } = e.target;
+    setDeleteTickets([]);
+    let updateList = [];
+    if (name === "CheckAll") {
+      console.log("Check All:- ", checked);
+      if (checked) {
+        ticketsData.map((ticket) => updateList.push(ticket._id));
+      }
 
-  const handleSingleCheck = (id) => {
-    let updateList;
+      console.log("check all update List:- ", updateList);
 
-    if (deleteTickets.includes(id)) {
-      updateList = deleteTickets.filter((item) => item !== id);
+      setDeleteTickets(updateList);
+
+      let tempTicket = ticketsData?.map((ticket) => {
+        return { ...ticket, isChecked: checked };
+      });
+      setTicketsData(tempTicket);
     } else {
-      updateList = [...deleteTickets, id];
-    }
+      let tempTicket = ticketsData?.map((ticket) =>
+        ticket._id === name ? { ...ticket, isChecked: checked } : ticket
+      );
+      if (deleteTickets.includes(name)) {
+        updateList = deleteTickets.filter((item) => item !== name);
+      } else {
+        updateList = [...deleteTickets, name];
+      }
+      setDeleteTickets(updateList);
 
-    setDeleteTickets(updateList);
+      setTicketsData(tempTicket);
+    }
   };
 
-  console.log(deleteTickets);
+  // const handleSingleCheck = (id) => {
+  //   let updateList;
+
+  //   if (deleteTickets.includes(id)) {
+  //     updateList = deleteTickets.filter((item) => item !== id);
+  //   } else {
+  //     updateList = [...deleteTickets, id];
+  //   }
+
+  //   setDeleteTickets(updateList);
+  // };
+
+  console.log("Delete Tickets IDs:-  ",deleteTickets);
 
   const handleDelete = () => {
     confirmAlert({
@@ -95,14 +128,6 @@ function AllTickets() {
     });
   };
 
-  useEffect(() => {
-    if (allChecked) {
-      setIsChecked(true);
-    } else {
-      console.log(allChecked);
-    }
-  }, [allChecked]);
-
   const handleFilters = () => {
     console.log("");
   };
@@ -117,7 +142,10 @@ function AllTickets() {
           <Navbar title={"All Tickets"} titleLink="all-tickets" />
           <ActionBar>
             <ActionBarBtns
-              checked={allChecked}
+              checked={
+                !ticketsData?.some((ticket) => ticket?.isChecked !== true)
+              }
+              name="CheckAll"
               onChange={handleAllChecked}
               handleDelete={handleDelete}
             />
@@ -144,8 +172,9 @@ function AllTickets() {
                           ticketUserName={ticket.name}
                           ticketPriority={ticket.priority}
                           ticketDateTime={ticket.createdAt}
-                          checked={isChecked[ticket.id]}
-                          onChange={handleSingleCheck}
+                          checked={ticket?.isChecked || false}
+                          onChange={handleAllChecked}
+                          checkBoxName={ticket._id}
                         />
                       ))}
                     </>
