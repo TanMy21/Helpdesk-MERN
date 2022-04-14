@@ -1,8 +1,9 @@
-html, body { 
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
-  min-width: 1140px
+  min-width: 1140px;
 }
 
 .App {
@@ -44,64 +45,102 @@ html, body {
   }
 }
 
-.navbar{
-  height: 6%;
+.navbar {
+  height: 7%;
 }
 
-.border{
+.border {
   border: 2px solid black;
 }
 
-.nav-logo{
+.nav-logo {
   width: 100%;
   height: 50px;
 }
 
-.nav-link{
+.nav-link {
   color: #282c34;
   text-decoration: none;
   font-size: 16px;
   font-weight: 600px;
 }
 
-.landing-container{
-  margin-top: 8%;
-  width: 90%;
-  height: 90vh;
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
-.get-started-btn{
-  background-color: #5D35D7;
+.landing-nav-container {
+  width: 100%;
+  height: 72px;
+}
+
+.landing-main-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.banner-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+
+#banner-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 600px;
+  height: 300px;
+}
+
+.get-started-btn {
+  background-color: #5d35d7;
   width: 52%;
   color: white;
   font-size: 1.2rem;
 }
-.btn-color{
-  background-color: #5D35D7;
+.btn-color {
+  background-color: #5d35d7;
   color: white;
   font-size: 1.2rem;
 }
 
-.form-container{
+.form-container {
   margin: auto;
   margin-top: 15%;
   width: 50%;
 }
 
 h6 {
-  width: 100%; 
-  text-align: center; 
-  border-bottom: 1px solid #000; 
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
   line-height: 0.1em;
-  margin: 10px 0 20px; 
-} 
-
-h6 span { 
-   background:#fff; 
-   padding:0 10px; 
+  margin: 10px 0 20px;
 }
 
-.error-wrapper{
+h6 span {
+  background: #fff;
+  padding: 0 10px;
+}
+
+.error-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +149,7 @@ h6 span {
   height: 100vh;
 }
 
-#notfound-img-container{
+#notfound-img-container {
   width: 600px;
   height: 600px;
 }

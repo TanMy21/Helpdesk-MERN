@@ -4,30 +4,26 @@ import { Link } from "react-router-dom";
 const Landing = () => {
   return (
     <>
-      <LandingNav />
       <div className="landing-container">
-        <div className="row">
-          <div className="col">
+        <div className="landing-nav-container">
+          <LandingNav />
+        </div>
+        <div className="landing-main-container">
+          <div className="banner-img">
             <img src={main} />
           </div>
-          <div className="d-flex align-items-center col">
-            <div>
-              <div className="row">
-                <h1>Delight your customers with effortless customer service</h1>
-              </div>
-              <div className="row">
-                <h5>
-                  Engage in more meaningful conversations every day, across
-                  every channel, with every customer.
-                </h5>
-              </div>
-              <div className="d-flex justify-content-center row">
-                <Link to="/register">
-                  <button type="button" className="btn get-started-btn">
-                    GET STARTED
-                  </button>
-                </Link>
-              </div>
+          <div className="banner-content">
+            <div id="banner-content">
+              <h1>Delight your customers with effortless customer service</h1>
+              <h5>
+                Engage in more meaningful conversations every day, across every
+                channel, with every customer.
+              </h5>
+              <Link to="/register">
+                <button type="button" className="btn get-started-btn">
+                  GET STARTED
+                </button>
+              </Link>
             </div>
           </div>
         </div>
