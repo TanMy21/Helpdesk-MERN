@@ -9,7 +9,6 @@ import {
   createAgent,
   getAgents,
   deleteAgent,
-  reset,
 } from "../../features/agents/agentSlice";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -25,7 +24,7 @@ const Agents = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { agents, isSuccess } = useSelector((state) => state.agents);
+  const { agents } = useSelector((state) => state.agents);
 
   useEffect(() => {
     if (!user) {
@@ -57,7 +56,7 @@ const Agents = () => {
       message:
         "This will remove all agent information from the helpdesk. Are you sure you want to proceed?",
       buttons: [
-        { label: "Cancel", onClick: () => alert("Click No") },
+        { label: "Cancel" },
         { label: "Confirm", onClick: () => dispatch(deleteAgent(id)) },
       ],
     });

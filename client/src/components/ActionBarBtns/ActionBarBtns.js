@@ -1,5 +1,13 @@
 import "./action.bar.btns.css";
-const ActionBarBtns = ({ checked, name, onChange, handleDelete }) => {
+import ActionBtns from "./ActionBtns";
+const ActionBarBtns = ({
+  checked,
+  name,
+  onChange,
+  handleDelete,
+  handleClose,
+  showActionBtns,
+}) => {
   return (
     <>
       <div className="action-bar-btns-container">
@@ -10,9 +18,9 @@ const ActionBarBtns = ({ checked, name, onChange, handleDelete }) => {
           checked={checked}
           onChange={onChange}
         />
-        <div className="action-bar-delete-btn" onClick={handleDelete}>
-          Delete
-        </div>
+        {showActionBtns ? (
+          <ActionBtns handleDelete={handleDelete} handleClose={handleClose} />
+        ) : null}
       </div>
     </>
   );

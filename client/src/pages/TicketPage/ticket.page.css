@@ -335,6 +335,7 @@
 }
 
 .ticket-user-email-text{
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -346,5 +347,4 @@
 .ticket-page-actionbar-btns-container {
   width: 80%;
   height: 90%;
-  border: 2px solid black;
 }

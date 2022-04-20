@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,13 +10,15 @@ import ActionBar from "../../components/ActionBar/ActionBar";
 import Pagination from "../../components/Pagination/Pagination";
 import {
   getTickets,
-  reset,
   deleteTicket,
+  closeTicket,
 } from "../../features/tickets/ticketSlice";
 import "./all.tickets.css";
 import ActionBarBtns from "../../components/ActionBarBtns/ActionBarBtns";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+// import { filterTickets } from "../../features/tickets/ticketSlice";
+import { getAgents } from "../../features/agents/agentSlice";
 
 function AllTickets() {
   const navigate = useNavigate();
@@ -25,31 +28,58 @@ function AllTickets() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { tickets, isSuccess } = useSelector((state) => state.tickets);
+  const { tickets } = useSelector((state) => state.tickets);
+
+  const { agents } = useSelector((state) => state.agents);
 
   const [deleteTickets, setDeleteTickets] = useState([]);
 
   const [ticketsData, setTicketsData] = useState([]);
 
-  // const [isChecked, setIsChecked] = useState(false);
-
-  // const [allChecked, setAllChecked] = useState(false);
+  const [showActionBtns, setShowActionBtns] = useState(false);
 
   const { totalPages } = tickets;
+
+  const agentsName = [];
+
+  const [createdFilter, setCreatedFilter] = useState("Any Time");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [priorityFilter, setPriorityFilter] = useState("All");
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [resolutionFilter, setResolutionFilter] = useState("All");
+  const [sourceFilter, setSourceFilter] = useState("All");
+  const [agentFilter, setAgentFilter] = useState("All");
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-
-    return () => {
-      // dispatch(reset());
-    };
   }, [user, navigate, dispatch]);
 
   useEffect(() => {
-    dispatch(getTickets(page));
-  }, [dispatch, page, deleteTicket]);
+    dispatch(
+      getTickets({
+        page,
+        agentFilter,
+        createdFilter,
+        statusFilter,
+        priorityFilter,
+        typeFilter,
+        resolutionFilter,
+        sourceFilter,
+      })
+    );
+  }, [
+    dispatch,
+    page,
+    agentFilter,
+    createdFilter,
+    statusFilter,
+    priorityFilter,
+    typeFilter,
+    resolutionFilter,
+    sourceFilter,
+  ]);
 
   useEffect(() => {
     setTicketsData(tickets?.Alltickets);
@@ -63,16 +93,15 @@ function AllTickets() {
     setPage(Math.min(totalPages - 1, page + 1));
   };
 
-  const addAllTickets = () => {
-    console.log(ticketsData);
-  };
-
   const handleAllChecked = (e) => {
     const { name, checked } = e.target;
     setDeleteTickets([]);
     let updateList = [];
     if (name === "CheckAll") {
       console.log("Check All:- ", checked);
+
+      setShowActionBtns(true);
+
       if (checked) {
         ticketsData.map((ticket) => updateList.push(ticket._id));
       }
@@ -86,6 +115,7 @@ function AllTickets() {
       });
       setTicketsData(tempTicket);
     } else {
+      setShowActionBtns(true);
       let tempTicket = ticketsData?.map((ticket) =>
         ticket._id === name ? { ...ticket, isChecked: checked } : ticket
       );
@@ -100,26 +130,12 @@ function AllTickets() {
     }
   };
 
-  // const handleSingleCheck = (id) => {
-  //   let updateList;
-
-  //   if (deleteTickets.includes(id)) {
-  //     updateList = deleteTickets.filter((item) => item !== id);
-  //   } else {
-  //     updateList = [...deleteTickets, id];
-  //   }
-
-  //   setDeleteTickets(updateList);
-  // };
-
-  console.log("Delete Tickets IDs:-  ",deleteTickets);
-
   const handleDelete = () => {
     confirmAlert({
       title: `Delete ${deleteTickets.length} Ticket(s)`,
       message: "Are you sure you want to proceed?",
       buttons: [
-        { label: "Cancel", onClick: () => alert("Click No") },
+        { label: "Cancel" },
         {
           label: "Confirm",
           onClick: () => dispatch(deleteTicket(deleteTickets)),
@@ -128,11 +144,42 @@ function AllTickets() {
     });
   };
 
-  const handleFilters = () => {
-    console.log("");
+  const handleClose = () => {
+    confirmAlert({
+      title: `Close ${deleteTickets.length} Ticket(s)`,
+      message: "Are you sure you want to close?",
+      buttons: [
+        { label: "Cancel" },
+        {
+          label: "Confirm",
+          onClick: () => dispatch(closeTicket(deleteTickets)),
+        },
+      ],
+    });
   };
 
-  // console.log(ticketsData);
+  useEffect(() => {
+    dispatch(getAgents());
+  }, [dispatch]);
+
+  agents.map((agent) => agentsName.push(agent.name));
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setPage(0);
+    dispatch(
+      getTickets({
+        page,
+        agentFilter,
+        createdFilter,
+        statusFilter,
+        priorityFilter,
+        typeFilter,
+        resolutionFilter,
+        sourceFilter,
+      })
+    );
+  };
 
   return (
     <>
@@ -148,6 +195,8 @@ function AllTickets() {
               name="CheckAll"
               onChange={handleAllChecked}
               handleDelete={handleDelete}
+              showActionBtns={showActionBtns}
+              handleClose={handleClose}
             />
             <Pagination
               page={page}
@@ -182,7 +231,17 @@ function AllTickets() {
                 </>
               </div>
               <div className="filters">
-                <FilterForm handleFilters={handleFilters} />
+                <FilterForm
+                  agentsName={agentsName}
+                  setAgentFilter={setAgentFilter}
+                  setCreatedFilter={setCreatedFilter}
+                  setStatusFilter={setStatusFilter}
+                  setPriorityFilter={setPriorityFilter}
+                  setTypeFilter={setTypeFilter}
+                  setResolutionFilter={setResolutionFilter}
+                  setSourceFilter={setSourceFilter}
+                  onSubmit={onSubmit}
+                />
               </div>
             </div>
           </div>

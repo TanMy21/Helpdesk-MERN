@@ -32,6 +32,31 @@ export const createTicket = createAsyncThunk(
   }
 );
 
+// // Filter tickets
+// export const filterTickets = createAsyncThunk(
+//   "tickets/filter",
+//   async (filterData, thunkAPI) => {
+//     try {
+
+//       console.log("ticket slice:- ",filterData);
+
+//       // const token = thunkAPI.getState().auth.user.token
+//       const token = JSON.parse(localStorage.getItem("token"));
+
+//       return await ticketService.filterTicket(filterData, token);
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+
+//       return thunkAPI.rejectWithValue(message);
+//     }
+//   }
+// );
+
 // Get user tickets
 export const getTickets = createAsyncThunk(
   "tickets/getAll",
@@ -120,7 +145,6 @@ export const deleteTicket = createAsyncThunk(
   "tickets/delete",
   async (ticketDelete, thunkAPI) => {
     try {
-      
       const token = JSON.parse(localStorage.getItem("token"));
       return await ticketService.deleteTicket(ticketDelete, token);
     } catch (error) {
@@ -139,10 +163,11 @@ export const deleteTicket = createAsyncThunk(
 // Close ticket
 export const closeTicket = createAsyncThunk(
   "tickets/close",
-  async (ticketId, thunkAPI) => {
+  async (ticketIds, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
-      return await ticketService.closeTicket(ticketId, token);
+      console.log("ticket slice:- ", ticketIds);
+      const token = JSON.parse(localStorage.getItem("token"));
+      return await ticketService.closeTicket(ticketIds, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -176,7 +201,7 @@ export const ticketSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(updateTicket.pending, (state) => {
+     .addCase(updateTicket.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updateTicket.fulfilled, (state) => {
@@ -213,6 +238,19 @@ export const ticketSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      // .addCase(filterTickets.pending, (state) => {
+      //   state.isLoading = true;
+      // })
+      // .addCase(filterTickets.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.tickets = action.payload;
+      // })
+      // .addCase(filterTickets.rejected, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isError = true;
+      //   state.message = action.payload;
+      // })
       .addCase(getTicketsInfo.pending, (state) => {
         state.isLoading = true;
       })
@@ -239,14 +277,18 @@ export const ticketSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(closeTicket.fulfilled, (state, action) => {
+      .addCase(closeTicket.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(closeTicket.fulfilled, (state) => {
         state.isLoading = false;
-        state.tickets.map((ticket) =>
-          ticket._id === action.payload._id
-            ? (ticket.status = "closed")
-            : ticket
-        );
-      });
+        state.isSuccess = true;
+      })
+      .addCase(closeTicket.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
   },
 });
 

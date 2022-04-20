@@ -3,14 +3,149 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/user.model");
 const Ticket = require("../models/ticket.model");
 
-// @desc    Get user tickets
-// @route   GET /api/tickets
-// @access  Private
+// // @desc    Get user tickets
+// // @route   GET /api/tickets
+// // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
+  const {
+    page,
+    agentFilter,
+    createdFilter,
+    statusFilter,
+    priorityFilter,
+    typeFilter,
+    resolutionFilter,
+    sourceFilter,
+  } = JSON.parse(req.query.ticketsFilterData);
+
+  console.log(
+    "Controller:- ",
+    page,
+    agentFilter,
+    createdFilter,
+    statusFilter,
+    priorityFilter,
+    typeFilter,
+    resolutionFilter,
+    sourceFilter
+  );
+
   //pagination
-  const PAGE_SIZE = 5;
-  const PAGE = parseInt(req.query.page || "0");
-  const total = await Ticket.countDocuments({ user: req.user.id });
+  const PAGE_SIZE = 6;
+  const PAGE = parseInt(page) || 0;
+  const skip = PAGE_SIZE * PAGE;
+
+  var pipeline = [
+    {
+      $addFields: {
+        // put your query param here
+        paramAssigned: agentFilter,
+        paramType: typeFilter,
+        paramSource: sourceFilter,
+        paramStatus: statusFilter,
+        paramPriority: priorityFilter,
+      },
+    },
+    {
+      $match: {
+        $expr: {
+          $and: [
+            {
+              user: req.user.id,
+            },
+            {
+              $or: [
+                {
+                  $eq: ["$paramAssigned", "All"],
+                },
+                {
+                  $eq: ["$paramAssigned", "$assigned"],
+                },
+              ],
+            },
+            {
+              $or: [
+                {
+                  $eq: ["$paramType", "All"],
+                },
+                {
+                  $eq: ["$paramType", "$type"],
+                },
+              ],
+            },
+            {
+              $or: [
+                {
+                  $eq: ["$paramSource", "All"],
+                },
+                {
+                  $eq: ["$paramSource", "$source"],
+                },
+              ],
+            },
+            {
+              $or: [
+                {
+                  $eq: ["$paramStatus", "All"],
+                },
+                {
+                  $eq: ["$paramStatus", "$status"],
+                },
+              ],
+            },
+            {
+              $or: [
+                {
+                  $eq: ["$paramPriority", "All"],
+                },
+                {
+                  $eq: ["$paramPriority", "$priority"],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    {
+      $setWindowFields: {
+        output: {
+          totalCount: {
+            $count: {},
+          },
+        },
+      },
+    },
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
+      $skip: skip,
+    },
+    {
+      $limit: PAGE_SIZE,
+    },
+    {
+      $project: {
+        paramAssigned: false,
+        paramPriority: false,
+        paramSource: false,
+        paramStatus: false,
+        paramType: false,
+      },
+    },
+  ];
+
+  // const total = await Ticket.countDocuments({ user: req.user.id });
+  // const aggregateQuery = await Ticket.aggregate([pipeline]);
+
+  // console.log("aggregate query:- ", aggregateQuery);
+
+  // const total = aggregateQuery.length;
+
+  // console.log("Total:- ", total);
 
   // Get user using the id in the JWT
   const user = await User.findById(req.user.id);
@@ -20,15 +155,73 @@ const getTickets = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const Alltickets = await Ticket.find({ user: req.user.id })
-    .limit(PAGE_SIZE)
-    .skip(PAGE_SIZE * PAGE)
-    .sort({ createdAt: -1 });
+  // const Alltickets = await Ticket.find({ user: req.user.id })
+  //   .limit(PAGE_SIZE)
+  //   .skip(PAGE_SIZE * PAGE)
+  //   .sort({ createdAt: -1 });
+
+  const Alltickets = await Ticket.aggregate([pipeline])
+  // .limit(PAGE_SIZE);
+  // .skip(skip)
+  // .sort({ createdAt: -1 });
+
+  const total = Alltickets[0].totalCount;
+
+  console.log("Total:- ", total);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
+  console.log("aggregate query:- ", Alltickets);
+
+  console.log("Total:- ", total);
+
+  console.log("Page Size:- ", skip);
+
+  console.log("Page:-", PAGE);
+
+  console.log("Total Pages:-", totalPages);
+
   res.status(200).json({ totalPages, Alltickets });
 });
+
+// --------------------------------------------------------------------------------
+
+// // @desc    Get user tickets
+// // @route   GET /api/tickets
+// // @access  Private
+// const getTickets = asyncHandler(async (req, res) => {
+//   const { page } = JSON.parse(req.query.ticketsFilterData);
+
+//   //pagination
+//   const PAGE_SIZE = 6;
+//   const PAGE = parseInt(page || "0");
+//   const total = await Ticket.countDocuments({ user: req.user.id });
+
+//   // Get user using the id in the JWT
+//   const user = await User.findById(req.user.id);
+
+//   if (!user) {
+//     res.status(401);
+//     throw new Error("User not found");
+//   }
+
+//   const Alltickets = await Ticket.find({ user: req.user.id })
+//     .limit(PAGE_SIZE)
+//     .skip(PAGE_SIZE * PAGE)
+//     .sort({ createdAt: -1 });
+
+//   const totalPages = Math.ceil(total / PAGE_SIZE);
+
+//   console.log("All Tickets:- ", Alltickets);
+//   console.log("Total:- ", total);
+//   console.log("PAGE:- ", PAGE);
+//   console.log("Page Size * PAGE:- ", PAGE_SIZE * PAGE);
+//   console.log("Total Pages:- ", totalPages);
+
+//   res.status(200).json({ totalPages, Alltickets });
+// });
+
+// ----------------------------------------------------------------------------------------------------
 
 // @desc    Get tickets info
 // @route   GET /api/tickets/data
@@ -299,6 +492,24 @@ const updateTicket = asyncHandler(async (req, res) => {
   res.status(200).json(updatedTicket);
 });
 
+// @desc    Close ticket
+// @route   PATCH /api/tickets/:id
+// @access  Private
+const closeTicket = asyncHandler(async (req, res) => {
+  const { ticketIds } = req.body.data;
+
+  Ticket.bulkWrite(
+    ticketIds.map((id) => ({
+      updateOne: {
+        filter: { _id: id },
+        update: { $set: { status: "Closed" } },
+      },
+    }))
+  );
+
+  res.status(200);
+});
+
 module.exports = {
   getTickets,
   getTicketsInfo,
@@ -306,4 +517,5 @@ module.exports = {
   createTicket,
   deleteTicket,
   updateTicket,
+  closeTicket,
 };

@@ -15,17 +15,36 @@ const createTicket = async (ticketData, token) => {
   return response.data;
 };
 
-// Get user tickets
-const getTickets = async (pg, token) => {
+// // Create new ticket
+// const filterTicket = async (filterData, token) => {
+//   const config = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//     params: {
+//       filterData: filterData,
+//     },
+//   };
 
+//   console.log("ticket service:- ", filterData);
+
+//   const response = await axios.get(API_URL, config);
+
+//   return response.data;
+// };
+
+// Get user tickets
+const getTickets = async (ticketsFilterData, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    params:{
-      page:pg
-    }
+    params: {
+      ticketsFilterData: ticketsFilterData,
+    },
   };
+
+  console.log("ticket service:- ", ticketsFilterData);
 
   const response = await axios.get(API_URL, config);
 
@@ -34,14 +53,13 @@ const getTickets = async (pg, token) => {
 
 // Get user tickets
 const getTicketsInfo = async (token) => {
-
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(API_URL + 'data', config);
+  const response = await axios.get(API_URL + "data", config);
   return response.data;
 };
 
@@ -76,41 +94,42 @@ const deleteTicket = async (ticketDelete, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-    }, 
-    data:{
-      ticketDelete
-    }
+    },
+    data: {
+      ticketDelete,
+    },
   };
 
-  console.log("Service:-  ",ticketDelete);
+  console.log("Service:-  ", ticketDelete);
 
   const response = await axios.delete(API_URL, config);
-  
+
   console.log("Response:- ", response);
 
   return response.data;
-
 };
 
 // Close ticket
-const closeTicket = async (ticketId, token) => {
+const closeTicket = async (ticketIds, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    data: {
+      ticketIds,
+    },
   };
 
-  const response = await axios.put(
-    API_URL + ticketId,
-    { status: "closed" },
-    config
-  );
+  console.log("ticket service:- ", ticketIds);
+
+  const response = await axios.patch(API_URL + "close", config);
 
   return response.data;
 };
 
 const ticketService = {
   createTicket,
+  // filterTicket,
   getTickets,
   getTicketsInfo,
   getTicket,

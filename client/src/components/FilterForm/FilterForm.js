@@ -1,70 +1,163 @@
-import FilterFormRow from "./FilterFormRow/FilterFormRow";
-import { getAgents } from "../../features/agents/agentSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+const FilterForm = ({
+  agentsName,
+  setAgentFilter,
+  setCreatedFilter,
+  setStatusFilter,
+  setPriorityFilter,
+  setTypeFilter,
+  setResolutionFilter,
+  setSourceFilter,
+  onSubmit,
+}) => {
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
 
-const FilterForm = ({handleFilters}) => {
-  const created = [
-    "Any Time",
-    "Yesterday",
-    "Today",
-    "This Week",
-    "This Month",
-    "This Year",
-  ];
-  const status = ["All", "Open", "Pending", "Resolved", "Closed"];
-  const priority = ["All", "Low", "Medium", "High", "Urgent"];
-
-  const type = [
-    "All",
-    "Question",
-    "Incident",
-    "Problem",
-    "Feature Request",
-    "Refund",
-  ];
-
-  const ResolutionDue = [
-    "All",
-    "Overdue",
-    "Today",
-    "Tomorrow",
-    "Next 12 hours",
-    "Next 8 hours",
-    "Next 4 hours",
-    "Next hour",
-  ];
-  const source = ["All", "Phone", "Forum", "Email", "Social Media"];
-
-  const agentsName = [];
-
-  const dispatch = useDispatch();
-
-  const { agents } = useSelector((state) => state.agents);
-
-  useEffect(() => {
-    dispatch(getAgents());
-  }, [dispatch]);
-
-  agents.map((agent) => agentsName.push(agent.name));
+  //   dispatch(
+  //     filterTickets({
+  //       agentFilter,
+  //       createdFilter,
+  //       statusFilter,
+  //       priorityFilter,
+  //       typeFilter,
+  //       resolutionFilter,
+  //       sourceFilter,
+  //       pg: 0,
+  //     })
+  //   );
+  // };
 
   return (
     <>
       <div className="filter-title">FILTERS</div>
       <div className="filter-form-container">
-        <form action="" className="filter-form">
-          <FilterFormRow rowLabel={"Agent"} Options={agentsName} />
-          <FilterFormRow rowLabel={"Created"} Options={created} />
-          <FilterFormRow
-            rowLabel={"Resolution due by"}
-            Options={ResolutionDue}
-          />
-          <FilterFormRow rowLabel={"Status"} Options={status} />
-          <FilterFormRow rowLabel={"Priority"} Options={priority} />
-          <FilterFormRow rowLabel={"Type"} Options={type} />
-          <FilterFormRow rowLabel={"Source"} Options={source} />
+        <form className="filter-form" onSubmit={onSubmit}>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Agent
+            </label>
+            <select
+              id="form-select-agent"
+              name="agents"
+              className="filter-input-select"
+              onChange={(e) => setAgentFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              {typeof agentsName === typeof [] && (
+                <>
+                  {agentsName.map((agent) => (
+                    <option key={agent} value={agent}>
+                      {agent}
+                    </option>
+                  ))}
+                </>
+              )}
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Created
+            </label>
+            <select
+              id="form-select-agent"
+              name="createdAt"
+              className="filter-input-select"
+              onChange={(e) => setCreatedFilter(e.target.value)}
+            >
+              <option value="All">Any Time</option>
+              <option value="Yesterday">Yesterday</option>
+              <option value="Today">Today</option>
+              <option value="This Week">This Week</option>
+              <option value="This Month">This Month</option>
+              <option value="This Year">This Year</option>
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Status
+            </label>
+            <select
+              id="form-select-agent"
+              name="status"
+              className="filter-input-select"
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Open">Open</option>
+              <option value="Pending">Pending</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Priority
+            </label>
+            <select
+              id="form-select-agent"
+              name="priority"
+              className="filter-input-select"
+              onChange={(e) => setPriorityFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Type
+            </label>
+            <select
+              id="form-select-agent"
+              name="type"
+              className="filter-input-select"
+              onChange={(e) => setTypeFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Question">Question</option>
+              <option value="Incident">Incident</option>
+              <option value="Problem">Problem</option>
+              <option value="Feature Request">Feature Request</option>
+              <option value="Refund">Refund</option>
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Resolution Due
+            </label>
+            <select
+              id="form-select-agent"
+              name="resolution due"
+              className="filter-input-select"
+              onChange={(e) => setResolutionFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Overdue">Overdue</option>
+              <option value="Today">Today</option>
+              <option value="Tommorow">Tommorow</option>
+            </select>
+          </div>
+          <div className="filter-form-row">
+            <label htmlFor="agents" id="form-input-title">
+              Source
+            </label>
+            <select
+              id="form-select-agent"
+              name="resolution due"
+              className="filter-input-select"
+              onChange={(e) => setSourceFilter(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Phone">Phone</option>
+              <option value="Forum">Forum</option>
+              <option value="Email">Email</option>
+              <option value="Social Media">Social Media</option>
+            </select>
+          </div>
           <hr />
-          <input type="submit" value="Apply" id="filter-form-btn" onClick={handleFilters}/>
+          <input type="submit" value="Apply" id="filter-form-btn" />
         </form>
       </div>
     </>
