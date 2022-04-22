@@ -18,10 +18,10 @@ const Graph = () => {
         height={400}
         data={today}
         margin={{
-          top: 10,
+          top: 24,
           right: 30,
           left: 0,
-          bottom: 0,
+          bottom: 12,
         }}
       >
         <defs>

@@ -9,6 +9,7 @@ import Graph from "../../components/Graph/Graph";
 import ActionBar from "../../components/ActionBar/ActionBar";
 import TrafficPieChart from "../../components/PieChart/TrafficPieChart";
 import { getTicketsInfo } from "../../features/tickets/ticketSlice";
+import PriorityBarChart from "../../components/BarChart/BarChart";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -16,9 +17,7 @@ function Dashboard() {
   const { user } = useSelector((state) => state.auth);
 
   const { ticketsInfo, isSuccess } = useSelector((state) => state.tickets);
-
-  const [ticketsData, setTicketsData] = useState();
-
+  
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -31,6 +30,7 @@ function Dashboard() {
 
   const ticketsStatus = ticketsInfo?.ticketsDataStatus;
   const ticketsSource = ticketsInfo?.ticketsDataSource;
+  const ticketsPriority = ticketsInfo?.ticketsDataPriority;
 
   return (
     <>
@@ -57,10 +57,12 @@ function Dashboard() {
                     Traffic Analysis
                   </section>
                   <div className="pie-chart-container">
-                    <TrafficPieChart source={ticketsSource}/>
+                    <TrafficPieChart source={ticketsSource} />
                   </div>
                 </div>
-                <div className="performance"></div>
+                <div className="priority-container">
+                  <PriorityBarChart priorityData={ticketsPriority} />
+                </div>
               </div>
             </div>
           </div>

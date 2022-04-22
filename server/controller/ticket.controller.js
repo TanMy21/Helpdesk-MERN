@@ -35,6 +35,10 @@ const getTickets = asyncHandler(async (req, res) => {
   const PAGE = parseInt(page) || 0;
   const skip = PAGE_SIZE * PAGE;
 
+  console.log("User Id;-  ", req.user.id);
+
+  const userData = await User.findById(req.user.id);
+
   var pipeline = [
     {
       $addFields: {
@@ -48,63 +52,81 @@ const getTickets = asyncHandler(async (req, res) => {
     },
     {
       $match: {
-        $expr: {
-          $and: [
-            {
-              user: req.user.id,
-            },
-            {
-              $or: [
-                {
-                  $eq: ["$paramAssigned", "All"],
+        $and: [
+          {
+            user: userData._id,
+          },
+          {
+            $or: [
+              {
+                paramAssigned: {
+                  $eq: "All",
                 },
-                {
+              },
+              {
+                $expr: {
                   $eq: ["$paramAssigned", "$assigned"],
                 },
-              ],
-            },
-            {
-              $or: [
-                {
-                  $eq: ["$paramType", "All"],
+              },
+            ],
+          },
+          {
+            $or: [
+              {
+                paramType: {
+                  $eq: "All",
                 },
-                {
+              },
+              {
+                $expr: {
                   $eq: ["$paramType", "$type"],
                 },
-              ],
-            },
-            {
-              $or: [
-                {
-                  $eq: ["$paramSource", "All"],
+              },
+            ],
+          },
+          {
+            $or: [
+              {
+                paramSource: {
+                  $eq: "All",
                 },
-                {
+              },
+              {
+                $expr: {
                   $eq: ["$paramSource", "$source"],
                 },
-              ],
-            },
-            {
-              $or: [
-                {
-                  $eq: ["$paramStatus", "All"],
+              },
+            ],
+          },
+          {
+            $or: [
+              {
+                paramStatus: {
+                  $eq: "All",
                 },
-                {
+              },
+              {
+                $expr: {
                   $eq: ["$paramStatus", "$status"],
                 },
-              ],
-            },
-            {
-              $or: [
-                {
-                  $eq: ["$paramPriority", "All"],
+              },
+            ],
+          },
+          {
+            $or: [
+              {
+                paramPriority: {
+                  $eq: "All",
                 },
-                {
+              },
+              {
+                $expr: {
                   $eq: ["$paramPriority", "$priority"],
                 },
-              ],
-            },
-          ],
-        },
+              },
+            ],
+          },
+        ],
       },
     },
     {
@@ -160,20 +182,18 @@ const getTickets = asyncHandler(async (req, res) => {
   //   .skip(PAGE_SIZE * PAGE)
   //   .sort({ createdAt: -1 });
 
-  const Alltickets = await Ticket.aggregate([pipeline])
+  const Alltickets = await Ticket.aggregate([pipeline]);
   // .limit(PAGE_SIZE);
   // .skip(skip)
   // .sort({ createdAt: -1 });
+
+  console.log("aggregate query:- ", Alltickets);
 
   const total = Alltickets[0].totalCount;
 
   console.log("Total:- ", total);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
-
-  console.log("aggregate query:- ", Alltickets);
-
-  console.log("Total:- ", total);
 
   console.log("Page Size:- ", skip);
 
@@ -183,43 +203,6 @@ const getTickets = asyncHandler(async (req, res) => {
 
   res.status(200).json({ totalPages, Alltickets });
 });
-
-// --------------------------------------------------------------------------------
-
-// // @desc    Get user tickets
-// // @route   GET /api/tickets
-// // @access  Private
-// const getTickets = asyncHandler(async (req, res) => {
-//   const { page } = JSON.parse(req.query.ticketsFilterData);
-
-//   //pagination
-//   const PAGE_SIZE = 6;
-//   const PAGE = parseInt(page || "0");
-//   const total = await Ticket.countDocuments({ user: req.user.id });
-
-//   // Get user using the id in the JWT
-//   const user = await User.findById(req.user.id);
-
-//   if (!user) {
-//     res.status(401);
-//     throw new Error("User not found");
-//   }
-
-//   const Alltickets = await Ticket.find({ user: req.user.id })
-//     .limit(PAGE_SIZE)
-//     .skip(PAGE_SIZE * PAGE)
-//     .sort({ createdAt: -1 });
-
-//   const totalPages = Math.ceil(total / PAGE_SIZE);
-
-//   console.log("All Tickets:- ", Alltickets);
-//   console.log("Total:- ", total);
-//   console.log("PAGE:- ", PAGE);
-//   console.log("Page Size * PAGE:- ", PAGE_SIZE * PAGE);
-//   console.log("Total Pages:- ", totalPages);
-
-//   res.status(200).json({ totalPages, Alltickets });
-// });
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -340,7 +323,64 @@ const getTicketsInfo = asyncHandler(async (req, res) => {
     },
   ]);
 
-  res.status(200).json({ ticketsDataStatus, ticketsDataSource });
+  const ticketsDataPriority = await Ticket.aggregate([
+    {
+      $facet: {
+        Low: [
+          {
+            $match: {
+              user: user._id,
+              priority: "Low",
+            },
+          },
+        ],
+        Medium: [
+          {
+            $match: {
+              user: user._id,
+              priority: "Medium",
+            },
+          },
+        ],
+        High: [
+          {
+            $match: {
+              user: user._id,
+              priority: "High",
+            },
+          },
+        ],
+        Urgent: [
+          {
+            $match: {
+              user: user._id,
+              priority: "Urgent",
+            },
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        Low: {
+          $size: "$Low",
+        },
+        Medium: {
+          $size: "$Medium",
+        },
+        High: {
+          $size: "$High",
+        },
+        Urgent: {
+          $size: "$Urgent",
+        },
+      },
+    },
+  ]);
+
+  res
+    .status(200)
+    .json({ ticketsDataStatus, ticketsDataSource, ticketsDataPriority });
 });
 
 // @desc    Get user ticket

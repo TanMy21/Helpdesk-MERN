@@ -19,6 +19,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 // import { filterTickets } from "../../features/tickets/ticketSlice";
 import { getAgents } from "../../features/agents/agentSlice";
+import NoTickets from "../../components/NoTickets/NoTickets";
 
 function AllTickets() {
   const navigate = useNavigate();
@@ -38,7 +39,9 @@ function AllTickets() {
 
   const [showActionBtns, setShowActionBtns] = useState(false);
 
-  const { totalPages } = tickets;
+  const [noTicket, setNoTicket] = useState(false);
+
+  const { totalPages, message } = tickets;
 
   const agentsName = [];
 
@@ -83,6 +86,12 @@ function AllTickets() {
 
   useEffect(() => {
     setTicketsData(tickets?.Alltickets);
+
+    if (message) {
+      setNoTicket(true);
+    } else {
+      setNoTicket(false);
+    }
   }, [tickets]);
 
   const pageChangePrev = () => {
@@ -181,6 +190,13 @@ function AllTickets() {
     );
   };
 
+ useEffect(() => {
+   if(deleteTickets.length === 0){
+     setShowActionBtns(false);
+   }
+ },[deleteTickets])
+
+
   return (
     <>
       <div className="all-tickets-wrapper">
@@ -208,27 +224,31 @@ function AllTickets() {
           <div className="all-tickets-main-content">
             <div className="all-tickets-container">
               <div className="all-tickets">
-                <>
-                  {typeof ticketsData === typeof [] && (
-                    <>
-                      {ticketsData.map((ticket, index) => (
-                        <Ticket
-                          key={ticket._id}
-                          ticketId={ticket._id}
-                          ticketStatus={ticket.status}
-                          ticketSubject={ticket.subject}
-                          ticketSource={ticket.source}
-                          ticketUserName={ticket.name}
-                          ticketPriority={ticket.priority}
-                          ticketDateTime={ticket.createdAt}
-                          checked={ticket?.isChecked || false}
-                          onChange={handleAllChecked}
-                          checkBoxName={ticket._id}
-                        />
-                      ))}
-                    </>
-                  )}
-                </>
+                {noTicket ? (
+                  <NoTickets />
+                ) : (
+                  <>
+                    {typeof ticketsData === typeof [] && (
+                      <>
+                        {ticketsData.map((ticket, index) => (
+                          <Ticket
+                            key={ticket._id}
+                            ticketId={ticket._id}
+                            ticketStatus={ticket.status}
+                            ticketSubject={ticket.subject}
+                            ticketSource={ticket.source}
+                            ticketUserName={ticket.name}
+                            ticketPriority={ticket.priority}
+                            ticketDateTime={ticket.createdAt}
+                            checked={ticket?.isChecked || false}
+                            onChange={handleAllChecked}
+                            checkBoxName={ticket._id}
+                          />
+                        ))}
+                      </>
+                    )}
+                  </>
+                )}
               </div>
               <div className="filters">
                 <FilterForm

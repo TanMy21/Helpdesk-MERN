@@ -5,98 +5,98 @@ export const today = [
   },
   {
     name: "1",
-    resolved: 25,
+    resolved: 5,
   },
   {
     name: "2",
-    resolved: 30,
+    resolved: 8,
   },
   {
     name: "3",
-    resolved: 40,
+    resolved: 5,
   },
   {
     name: "4",
-    resolved: 23,
+    resolved: 8,
   },
   {
     name: "5",
-    resolved: 56,
+    resolved: 5,
   },
   {
     name: "6",
-    resolved: 72,
+    resolved: 2,
   },
   {
     name: "7",
-    resolved: 30,
+    resolved: 8,
   },
   {
     name: "8",
-    resolved: 40,
+    resolved: 12,
   },
   {
     name: "9",
-    resolved: 37,
+    resolved: 12,
   },
   {
     name: "9",
-    resolved: 58,
+    resolved: 10,
   },
   {
     name: "10",
-    resolved: 80,
+    resolved: 11,
   },
   {
     name: "11",
-    resolved: 45,
+    resolved: 20,
   },
   {
     name: "12",
-    resolved: 48,
+    resolved: 22,
   },
   {
     name: "13",
-    resolved: 52,
+    resolved: 30,
   },
   {
     name: "14",
-    resolved: 56,
+    resolved:35,
   },
   {
     name: "15",
-    resolved: 64,
+    resolved: 37,
   },
   {
     name: "16",
-    resolved: 58,
+    resolved: 45,
   },
   {
     name: "17",
-    resolved: 62,
+    resolved: 45,
   },
   {
     name: "18",
-    resolved: 70,
+    resolved: 60,
   },
   {
     name: "19",
-    resolved: 72,
+    resolved: 65,
   },
   {
     name: "20",
-    resolved: 68,
+    resolved: 62,
   },
   {
     name: "21",
-    resolved: 80,
+    resolved: 67,
   },
   {
     name: "22",
-    resolved: 82,
+    resolved: 70,
   },
   {
     name: "23",
-    resolved: 84,
+    resolved: 80,
   },
 ];
