@@ -6,6 +6,7 @@ import Sidebar from "../../components/Sidebar/sidebar";
 import Navbar from "../../components/Navbar/navbar";
 import { createTicket, reset } from "../../features/tickets/ticketSlice";
 import { getAgents } from "../../features/agents/agentSlice";
+import TagsInput from "../../components/TagsInput/TagsInput";
 
 const NewTicket = () => {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ const NewTicket = () => {
   const [priority, setPriority] = useState("Low");
   const [agent, setAgent] = useState("Agent 1");
   const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
+
+  const [duplicate, setDuplicate] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
   const { isSuccess } = useSelector((state) => state.tickets);
@@ -81,6 +84,29 @@ const NewTicket = () => {
     setAgent("Agent 1");
     setDescription("");
     setTags("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key !== "ArrowRight" || e.target.value === "") {
+      return;
+    }
+
+    if (tags.includes(e.target.value)) {
+      setDuplicate(true);
+      return;
+    } else {
+      setDuplicate(false);
+    }
+
+    if(tags.length !== 5){
+      setTags([...tags, e.target.value]);
+    }
+
+    e.target.value = "";
+  };
+
+  const removeTag = (index) => {
+    setTags(tags.filter((tag, idx) => idx !== index));
   };
 
   return (
@@ -265,19 +291,16 @@ const NewTicket = () => {
                       required
                     />
                     <br />
-                    <label htmlFor="contact" id="ticket-form-label">
-                      Tags <span id="required-input-star">*</span>
+                    <label htmlFor="contact" id="ticket-tags-label">
+                      Tags <p id="tags-label-max-text">(max 5 tags allowed)</p><span id="required-input-star">*</span>
+                    {duplicate ? <div id="duplicate-tag">Duplicate Tag not Allowed</div>: <div></div>}
                     </label>
                     <br />
-                    <input
-                      type="text"
-                      id="new-ticket-text-input"
-                      name="ticket-contact"
-                      value={tags}
-                      onChange={(e) => setTags(e.target.value)}
-                      required
+                    <TagsInput
+                      tags={tags}
+                      handleKeyDown={handleKeyDown}
+                      removeTag={removeTag}
                     />
-                    <br />
                     <br />
                     <hr />
                     <div className="frm-btn-container">

@@ -23,6 +23,7 @@ const Ticket = ({
   ticketUserName,
   ticketPriority,
   ticketDateTime,
+  ticketAssigned,
   checked,
   onChange,
   checkBoxName,
@@ -33,8 +34,7 @@ const Ticket = ({
 
   const [ticketMetaPriority, setTicketMetaPriority] = useState(ticketPriority);
   const [ticketMetaStatus, setTicketMetaStatus] = useState(ticketStatus);
-  
-  
+
   const sourceIcon = () => {
     if (ticketSource === "Phone") {
       return <BsTelephone />;
@@ -142,7 +142,7 @@ const Ticket = ({
             <HiOutlineUserAdd id="assign-agent" />
           </div>
           <div>
-            <select name="assign-agent" id="select-agent">
+            <select name="assign-agent" id="select-agent" value={ticketAssigned}>
               {typeof agents === typeof [] && (
                 <>
                   {agents.map((agent, index) => (

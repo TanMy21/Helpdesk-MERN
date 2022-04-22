@@ -157,7 +157,7 @@ const FilterForm = ({
             </select>
           </div>
           <hr />
-          <input type="submit" value="Apply" id="filter-form-btn" />
+          {/* <input type="submit" value="Apply" id="filter-form-btn" /> */}
         </form>
       </div>
     </>

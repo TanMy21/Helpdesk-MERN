@@ -22,7 +22,7 @@
   flex-direction: row;
   width: 100vw;
   height: auto;
-  min-height: 1200px;
+  min-height: 1250px;
   /* border: 2px solid black; */
 }
 
@@ -53,6 +53,7 @@
   width: 80%;
   height: 100%;
   background-color: var(--text-color);
+  border-radius: 8px;
 }
 
 .new-ticket-form {
@@ -98,6 +99,22 @@
   border-radius: 4px;
 }
 
+#ticket-tags-label{
+  display: flex;
+  flex-direction: row;
+  gap:5px;
+  margin-bottom: -30px;
+}
+
+#tags-label-max-text{
+  color: #ababac;
+}
+
+#duplicate-tag{
+  color: red;
+  font-size: 1rem;
+}
+
 .frm-btn-container {
   display: flex;
   flex-direction: row;
@@ -123,3 +140,4 @@
   background: var(--ticket-cancel-btn-color);
   border-radius: 4px;
 }
+

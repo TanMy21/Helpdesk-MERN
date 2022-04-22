@@ -190,12 +190,11 @@ function AllTickets() {
     );
   };
 
- useEffect(() => {
-   if(deleteTickets.length === 0){
-     setShowActionBtns(false);
-   }
- },[deleteTickets])
-
+  useEffect(() => {
+    if (deleteTickets.length === 0) {
+      setShowActionBtns(false);
+    }
+  }, [deleteTickets]);
 
   return (
     <>
@@ -240,6 +239,7 @@ function AllTickets() {
                             ticketUserName={ticket.name}
                             ticketPriority={ticket.priority}
                             ticketDateTime={ticket.createdAt}
+                            ticketAssigned={ticket.assigned}
                             checked={ticket?.isChecked || false}
                             onChange={handleAllChecked}
                             checkBoxName={ticket._id}
