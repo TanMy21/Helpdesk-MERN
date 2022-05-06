@@ -11,6 +11,7 @@ import NewTicket from "./pages/New Ticket/NewTicket";
 import AllTickets from "./pages/All Tickets/AllTickets";
 import Settings from "./pages/Settings/Settings";
 import TicketPage from "./pages/TicketPage/TicketPage";
+// import TPage from "./pages/TicketPage/TPage";
 import Error from "./pages/Error";
 import Agents from "./pages/Agents/Agents";
 
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/new-ticket" element={<NewTicket />} />
         <Route exact path="/all-tickets" element={<AllTickets />} />
         <Route exact path="/ticket-page/:ticketId" element={<TicketPage />} />
+        {/* <Route exact path="/ticket-page/:ticketId" element={<TPage />} /> */}
         <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/agents" element={<Agents />} />
         <Route exact path="/error" element={<Error />} />

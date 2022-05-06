@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,10 +8,15 @@ import Navbar from "../../components/Navbar/navbar";
 import { createTicket, reset } from "../../features/tickets/ticketSlice";
 import { getAgents } from "../../features/agents/agentSlice";
 import TagsInput from "../../components/TagsInput/TagsInput";
+import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
 
 const NewTicket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // const [editorState, setEditorState] = useState(() =>
+  //   EditorState.createEmpty()
+  // );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,6 +64,24 @@ const NewTicket = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    // console.log(
+    //   name,
+    //   email,
+    //   phone,
+    //   subject,
+    //   type,
+    //   source,
+    //   status,
+    //   priority,
+    //   agent,
+    //   description,
+    //   tags
+    // );
+
+    console.log(description);
+    console.log(typeof(description));
+
     dispatch(
       createTicket({
         name,
@@ -91,15 +115,18 @@ const NewTicket = () => {
       return;
     }
 
-    if (tags.includes(e.target.value)) {
+    const tag =
+      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1);
+
+    if (tags.includes(tag)) {
       setDuplicate(true);
       return;
     } else {
       setDuplicate(false);
     }
 
-    if(tags.length !== 5){
-      setTags([...tags, e.target.value]);
+    if (tags.length !== 5) {
+      setTags([...tags, tag]);
     }
 
     e.target.value = "";
@@ -119,7 +146,7 @@ const NewTicket = () => {
             <div className="new-ticket-content">
               <div className="new-ticket-form-container">
                 <div className="new-ticket-form">
-                  <form onSubmit={onSubmit}>
+                  <form>
                     <label htmlFor="contact" id="ticket-htmlForm-label">
                       Full Name <span id="required-input-star">*</span>
                     </label>
@@ -275,39 +302,40 @@ const NewTicket = () => {
                         </>
                       )}
                     </select>
-                    <br />
-                    <br />
-                    <label htmlFor="description">
-                      Description <span id="required-input-star">*</span>
-                    </label>
-                    <br />
-                    <textarea
-                      id="ticket-form-description"
-                      name="description"
-                      rows="6"
-                      cols="142"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      required
-                    />
-                    <br />
-                    <label htmlFor="contact" id="ticket-tags-label">
-                      Tags <p id="tags-label-max-text">(max 5 tags allowed)</p><span id="required-input-star">*</span>
-                    {duplicate ? <div id="duplicate-tag">Duplicate Tag not Allowed</div>: <div></div>}
-                    </label>
-                    <br />
-                    <TagsInput
-                      tags={tags}
-                      handleKeyDown={handleKeyDown}
-                      removeTag={removeTag}
-                    />
-                    <br />
-                    <hr />
-                    <div className="frm-btn-container">
-                      <input type="submit" value="Cancel" id="cancel-btn" />
-                      <input type="submit" value="Create" id="new-ticket-btn" />
-                    </div>
                   </form>
+                  <label htmlFor="description" id="ticket-form-label">
+                    Description <span id="required-input-star">*</span>
+                  </label>
+                  <div className="rte-container">
+                    <RichTextEditor setDescription={setDescription} />
+                  </div>
+                  <br />
+                  <label htmlFor="contact" id="ticket-tags-label">
+                    Tags <p id="tags-label-max-text">(max 5 tags allowed)</p>
+                    <span id="required-input-star">*</span>
+                    {duplicate ? (
+                      <div id="duplicate-tag">Duplicate Tag not Allowed</div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </label>
+                  <br />
+                  <TagsInput
+                    tags={tags}
+                    handleKeyDown={handleKeyDown}
+                    removeTag={removeTag}
+                  />
+                  <hr className="form-hr" />
+                  <br />
+                  <div className="frm-btn-container">
+                    <input type="submit" value="Cancel" id="cancel-btn" />
+                    <input
+                      type="submit"
+                      value="Create"
+                      id="new-ticket-btn"
+                      onClick={onSubmit}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

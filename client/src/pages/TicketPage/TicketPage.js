@@ -15,6 +15,7 @@ import { getAgents } from "../../features/agents/agentSlice";
 import classNames from "classnames";
 import Moment from "react-moment";
 import moment from "moment";
+import { Editor, EditorState, convertFromRaw } from "draft-js";
 
 const TicketPage = () => {
   const navigate = useNavigate();
@@ -26,10 +27,15 @@ const TicketPage = () => {
   const [status, setStatus] = useState("Open");
   const [priority, setPriority] = useState("Low");
   const [agent, setAgent] = useState("Agent 1");
+  const [description, setDescription] = useState(null);
+  const [contentState, setContentState] = useState(null);
+  const [editorContent, setEditorContent] = useState(null);
 
   const { user } = useSelector((state) => state.auth);
   const { ticket, isSuccess } = useSelector((state) => state.tickets);
   const { agents } = useSelector((state) => state.agents);
+
+  const userNameFirstChar = ticket?.name;
 
   useEffect(() => {
     if (!user) {
@@ -44,7 +50,7 @@ const TicketPage = () => {
   useEffect(() => {
     dispatch(getTicket(ticketId));
     dispatch(getAgents());
-  }, [ticketId, dispatch, ticket]);
+  }, [dispatch]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +61,38 @@ const TicketPage = () => {
     "dddd MMMM Do YYYY, h:mm a"
   );
 
-  return (
+  useEffect(() => {
+    if (ticket) {
+      setDescription(ticket?.description);
+    }
+  }, [ticket]);
+
+
+  useEffect(() => {
+
+    if(description){
+      const contentState = convertFromRaw(JSON.parse(description));
+      setContentState(contentState);
+    }
+
+  },[description])
+
+
+
+  useEffect(() => {
+
+    if(contentState){
+      const editorState = EditorState.createWithContent(contentState);
+      console.log(editorState);
+      setEditorContent(editorState)
+    }
+
+  },[contentState])
+
+
+
+
+  return editorContent && (
     <>
       <div className="wrapper">
         <Sidebar />
@@ -93,7 +130,7 @@ const TicketPage = () => {
                     <div className="ticket-content-header-container">
                       <div className="ticket-content-user-img">
                         <div className="ticket-user-icon-char">
-                          {ticket.name}
+                          {userNameFirstChar?.charAt(0)}
                         </div>
                       </div>
                       <div className="ticket-content-header">
@@ -112,7 +149,9 @@ const TicketPage = () => {
                       </div>
                     </div>
                     <div className="ticket-content-description">
-                      <p>{ticket.description}</p>
+                      {/* <p>{description}</p> */}
+                      {/* <RichTextDisplay description={ticket?.description}/> */}
+                      <Editor editorState={editorContent} readOnly={true} />
                     </div>
                   </div>
                 </div>
@@ -208,7 +247,9 @@ const TicketPage = () => {
                   <div className="contact-details-header">CONTACT DETAILS</div>
                   <div className="contact-details-content">
                     <div className="ticket-user-img-name">
-                      <div className="ticket-user-img"></div>
+                      <div className="ticket-user-img">
+                        {userNameFirstChar?.charAt(0)}
+                      </div>
                       <div className="ticket-user-name">{ticket.name}</div>
                     </div>
                     <div className="ticket-user-email">

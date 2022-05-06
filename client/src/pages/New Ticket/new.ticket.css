@@ -17,6 +17,7 @@
   --main-container-width: 90%;
 }
 
+
 .new-ticket-wrapper {
   display: flex;
   flex-direction: row;
@@ -70,6 +71,7 @@
   height: 36px;
   border: 1px double #b4b6b8;
   border-radius: 4px;
+  outline: none;
 }
 
 #new-ticket-select-input {
@@ -78,6 +80,7 @@
   height: 36px;
   border: 1px double #b4b6b8;
   border-radius: 4px;
+  outline: none;
 }
 
 #new-ticket-select-input select{
@@ -97,6 +100,7 @@
 #ticket-form-description {
   border: 1px double #b4b6b8;
   border-radius: 4px;
+  outline: none;
 }
 
 #ticket-tags-label{
@@ -120,6 +124,18 @@
   flex-direction: row;
   justify-content: end;
   justify-content: space-between;
+}
+
+.rte-container{
+  margin-top: 1%;
+  height: 200px;
+  /* border: 1px solid black; */
+}
+
+.form-hr{
+  opacity: 1;
+  margin-top: 2%;
+  border: 1px solid #b4b6b8;
 }
 
 #new-ticket-btn {

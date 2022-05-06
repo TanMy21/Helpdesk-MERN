@@ -147,7 +147,7 @@
   display: flex;
   flex-direction: column;
   width: 70%;
-  height: 80%;
+  height: 600px;
 }
 
 .ticket-content-header-container {
@@ -191,7 +191,7 @@
 .ticket-user-icon-char{
   display: inline-block;
   align-items: end;
-  color: transparent;
+  color: white;
   font-size: 2rem;
   text-transform: capitalize;
 }
@@ -215,8 +215,8 @@
 .ticket-content-description {
   margin-left: 8%;
   padding: 12px;
-  width: 70%;
-  height: 76%;
+  width: 80%;
+  height: 500px;
 }
 
 .ticket-day-datetime{
@@ -254,6 +254,8 @@
   margin-top: 2%;
   width: 250px;
   height: 36px;
+  outline: none;
+  border-radius: 4px;
 }
 
 #update-form-btn {
@@ -310,10 +312,15 @@
 }
 
 .ticket-user-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   margin-right: 4%;
   border-radius: 4px;
+  color: white;
+  font-size: 1.2rem;
   background-color: rgb(118, 84, 196);
 }
 
@@ -347,4 +354,13 @@
 .ticket-page-actionbar-btns-container {
   width: 80%;
   height: 90%;
+}
+
+.DraftEditor-editorContainer{
+  height: 100%;
+}
+
+.public-DraftEditor-content{
+  display: flex;
+  height: 100%;
 }

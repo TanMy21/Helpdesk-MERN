@@ -196,6 +196,7 @@
 .custom-select {
   position: relative;
   font-family: Arial;
+  outline: none;
 }
 
 .custom-select select {
@@ -263,6 +264,7 @@
 #select-agent {
   border: none;
   width: 120px;
+  outline: none;
 }
 
 /* -------------------------------- status ---------------------------------- */
@@ -290,4 +292,5 @@
 #ticket-status {
   border: none;
   width: 124px;
+  outline: none;
 }
