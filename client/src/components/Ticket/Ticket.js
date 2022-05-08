@@ -24,6 +24,7 @@ const Ticket = ({
   ticketPriority,
   ticketDateTime,
   ticketAssigned,
+  organizationName,
   checked,
   onChange,
   checkBoxName,

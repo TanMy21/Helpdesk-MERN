@@ -39,6 +39,9 @@ const ticketSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    OrganizationName: {
+      type: String,
+    },
   },
   {
     timestamps: true,

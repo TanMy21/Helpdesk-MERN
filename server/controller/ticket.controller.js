@@ -30,24 +30,6 @@ const getTickets = asyncHandler(async (req, res) => {
     sourceFilter
   );
 
-  var createdDate;
-
-  if (createdFilter === "Any Time") {
-    createdDate = "All";
-  } else if (createdFilter === "Yesterday") {
-    createdDate = moment().add(-1, "days");
-  } else if (createdFilter === "Today") {
-    createdDate = moment().add(-1, "days");
-  } else if (createdFilter === "This Week") {
-    createdDate = moment().add(-7, "days");
-  } else if (createdFilter === "This Month") {
-    createdDate = moment().add(-30, "days");
-  } else {
-    createdDate = moment().add(-365, "days");
-  }
-
-  console.log("Created Date:-  ", createdDate);
-
   //pagination
   const PAGE_SIZE = 6;
   const PAGE = parseInt(page) || 0;
@@ -62,7 +44,7 @@ const getTickets = asyncHandler(async (req, res) => {
       $addFields: {
         // put your query param here
         paramAssigned: agentFilter,
-        paramCreatedAt: createdDate,
+        paramCreatedAt: createdFilter,
         paramType: typeFilter,
         paramSource: sourceFilter,
         paramStatus: statusFilter,
@@ -155,6 +137,80 @@ const getTickets = asyncHandler(async (req, res) => {
               {
                 $expr: {
                   $eq: ["$paramPriority", "$priority"],
+                },
+              },
+            ],
+          },
+          {
+            $or: [
+              {
+                paramCreatedAt: {
+                  $eq: "Any Time",
+                },
+              },
+              {
+                $expr: {
+                  $and: [
+                    {
+                      $in: [
+                        "$paramCreatedAt",
+                        [
+                          "Yesterday",
+                          "Today",
+                          "This Week",
+                          "This Month",
+                          "This Year",
+                        ],
+                      ],
+                    },
+                    {
+                      $lte: [
+                        {
+                          $dateDiff: {
+                            startDate: "$createdAt",
+                            endDate: "$$NOW",
+                            unit: "day",
+                          },
+                        },
+                        {
+                          $switch: {
+                            branches: [
+                              {
+                                case: {
+                                  $eq: ["$paramCreatedAt", "Yesterday"],
+                                },
+                                then: 1,
+                              },
+                              {
+                                case: {
+                                  $eq: ["$paramCreatedAt", "Today"],
+                                },
+                                then: 0,
+                              },
+                              {
+                                case: {
+                                  $eq: ["$paramCreatedAt", "This Week"],
+                                },
+                                then: 7,
+                              },
+                              {
+                                case: {
+                                  $eq: ["$paramCreatedAt", "This Month"],
+                                },
+                                then: 30,
+                              },
+                              {
+                                case: {
+                                  $eq: ["$paramCreatedAt", "This Year"],
+                                },
+                                then: 365,
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 },
               },
             ],

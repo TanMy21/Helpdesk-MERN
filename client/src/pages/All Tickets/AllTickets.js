@@ -240,6 +240,7 @@ function AllTickets() {
                             ticketPriority={ticket.priority}
                             ticketDateTime={ticket.createdAt}
                             ticketAssigned={ticket.assigned}
+                            organizationName={ticket.OrganizationName}
                             checked={ticket?.isChecked || false}
                             onChange={handleAllChecked}
                             checkBoxName={ticket._id}

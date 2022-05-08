@@ -63,7 +63,7 @@ const FilterForm = ({
               className="filter-input-select"
               onChange={(e) => setCreatedFilter(e.target.value)}
             >
-              <option value="All">Any Time</option>
+              <option value="Any Time">Any Time</option>
               <option value="Yesterday">Yesterday</option>
               <option value="Today">Today</option>
               <option value="This Week">This Week</option>
