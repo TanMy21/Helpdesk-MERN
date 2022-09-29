@@ -8,7 +8,7 @@ const userRoutes = require("./routes/user.routes");
 const ticketRoutes = require("./routes/ticket.routes");
 const agentRoutes = require("./routes/agents.routes");
 const { errorHandler } = require("./middleware/error.middleware");
-//env
+//env.
 dotenv.config();
 
 //--------- Middleware

@@ -1,4 +1,5 @@
 server/node_modules
 server/mock_data.json
 server/populate.mjs
-Z:\WORK\MERN\HELPDESK\server\.env
+.env
+helpdesk_Mock_schema.json
