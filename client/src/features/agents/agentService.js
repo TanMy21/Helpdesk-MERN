@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:9000/api/agent/";
+const API_URL = "https://helpdesk-mern-tp.onrender.com/api/agent/";
 
 // Create new agent
 const createAgent = async (agentData, token) => {
